@@ -12,9 +12,6 @@ set(CMAKE_SYSTEM_PROCESSOR z80)
 # GNU-flavored assembler
 include(Platform/gas)
 
-# use .o for object files
-set(CMAKE_ASM_OUTPUT_EXTENSION .o)
-
 # use static libraries, not executables
 set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
 
