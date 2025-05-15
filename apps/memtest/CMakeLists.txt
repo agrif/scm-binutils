@@ -1,0 +1,5 @@
+add_executable(memtest memtest.s)
+target_link_options(memtest PRIVATE -Ttext=0x8000 -e Test)
+z80_print_size(memtest)
+z80_generate_binary(memtest)
+z80_generate_hex(memtest)
