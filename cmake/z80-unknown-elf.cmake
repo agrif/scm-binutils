@@ -1,6 +1,10 @@
 # based on stm32-cmake by Konstantin Oblaukhov
 # https://github.com/ObKo/stm32-cmake/
 
+if(CMAKE_VERSION VERSION_LESS "3.27")
+  message(FATAL_ERROR "This file requires CMake 3.27 or later.")
+endif()
+
 get_filename_component(Z80_CMAKE_DIR ${CMAKE_CURRENT_LIST_FILE} DIRECTORY)
 list(APPEND CMAKE_MODULE_PATH ${Z80_CMAKE_DIR})
 include(z80-common)
