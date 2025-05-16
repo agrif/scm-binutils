@@ -7,6 +7,7 @@ import sys
 import tempfile
 
 TABLE = {
+    'apps/memfill/memfill.hex': 'SCMonitor/Apps/Memory_fill/SCMon_MemFill_code8000.hex',
     'apps/memtest/memtest.hex': 'SCMonitor/Apps/Memory_test/SCMon_MemTest_code8000.hex',
 }
 

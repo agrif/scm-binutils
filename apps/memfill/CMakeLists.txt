@@ -1,0 +1,5 @@
+add_executable(memfill memfill.s)
+target_link_options(memfill PRIVATE -Ttext=0x8000 -e Test)
+z80_print_size(memfill)
+z80_generate_binary(memfill)
+z80_generate_hex(memfill)
