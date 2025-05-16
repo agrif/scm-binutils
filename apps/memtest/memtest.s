@@ -13,95 +13,99 @@
     ;; If a failure is found the faulty address is stored at <result>
     ;; otherwise <result> contains 0x0000
 
-    .BSS
-    .GLOBAL Result
-    .BALIGN 0x10
-Result: .DW 0
+    .bss
+    .global Result
+    .balign 0x10
+Result:
+    .skip 2
 
-    .TEXT
+    .text
 
     ;; Test lower 32K of RAM
-    .GLOBAL Test
+    .global Test
 Test:
-    LD   A,1            ;So it works on LiNC80 etc
-    OUT  (0x38),A       ;Page out ROM
+    ld   a, 1           ; So it works on LiNC80 etc
+    out  (0x38), a      ; Page out ROM
 
-    LD   HL,0x0000      ;Start location
+    ld   hl, 0x0000     ; Start location
 
 .LLower:
-    LD   A,(HL)         ;Current contents
-    LD   C,A            ;Store current contents
-    CPL                 ;Invert bits
-    LD   (HL),A         ;Write test pattern
-    CP   (HL)           ;Read back and compare
-    JR   NZ,.LLoEnd     ;Abort if not the same
-    LD   A,C            ;Get original contents
-    LD   (HL),A         ;Restore origianl contents
-    CP   (HL)           ;Read back and compare
-    JR   NZ,.LLoEnd     ;Abort if not the same
-    INC  HL             ;Point to next location
-    LD   A,H
-    CP   0x80           ;Have we finished?
-    JR   NZ,.LLower
+    ld   a, (hl)        ; Current contents
+    ld   c, a           ; Store current contents
+    cpl                 ; Invert bits
+    ld   (hl), a        ; Write test pattern
+    cp   (hl)           ; Read back and compare
+    jr   nz, .LLoEnd    ; Abort if not the same
+    ld   a, c           ; Get original contents
+    ld   (hl), a        ; Restore origianl contents
+    cp   (hl)           ; Read back and compare
+    jr   nz, .LLoEnd    ; Abort if not the same
+    inc  hl             ; Point to next location
+    ld   a, h
+    cp   0x80           ; Have we finished?
+    jr   nz, .LLower
 
 .LLoEnd:
-    XOR  A              ;So it works on LiNC80 etc
-    OUT  (0x38),A       ;Page in ROM
+    xor  a              ; So it works on LiNC80 etc
+    out  (0x38), a      ; Page in ROM
 
-    LD   (Result),HL    ;Store current address
-    LD   A,H
-    CP   0x80           ;Pass?
-    JR   NZ,.LFailed    ;No, so go report failure
+    ld   (Result), hl   ; Store current address
+    ld   a, h
+    cp   0x80           ; Pass?
+    jr   nz, .LFailed   ; No, so go report failure
 
     ;; Test upper 32K of RAM
 
-    LD   HL,BeginTest   ;Start location
+    ld   hl, BeginTest  ; Start location
 
 .LUpper:
-    LD   A,(HL)         ;Current contents
-    LD   C,A            ;Store current contents
-    CPL                 ;Invert bits
-    LD   (HL),A         ;Write test pattern
-    CP   (HL)           ;Read back and compare
-    JR   NZ,.LHiEnd     ;Abort if not the same
-    LD   A,C            ;Get original contents
-    LD   (HL),A         ;Restore origianl contents
-    CP   (HL)           ;Read back and compare
-    JR   NZ,.LHiEnd     ;Abort if not the same
-    INC  HL             ;Point to next location
-    LD   A,H
-    CP   0x00           ;Have we finished?
-    JR   NZ,.LUpper
+    ld   a, (hl)        ; Current contents
+    ld   c, a           ; Store current contents
+    cpl                 ; Invert bits
+    ld   (hl), a        ; Write test pattern
+    cp   (hl)           ; Read back and compare
+    jr   nz, .LHiEnd    ; Abort if not the same
+    ld   a, c           ; Get original contents
+    ld   (hl), a        ; Restore origianl contents
+    cp   (hl)           ; Read back and compare
+    jr   nz, .LHiEnd    ; Abort if not the same
+    inc  hl             ; Point to next location
+    ld   a, h
+    cp   0x00           ; Have we finished?
+    jr   nz, .LUpper
 
 .LHiEnd:
-    LD   (Result),HL    ;Store current address
-    LD   A,H
-    CP   0x00           ;Pass?
-    JR   NZ,.LFailed    ;No, so go report failure
+    ld   (Result), hl   ; Store current address
+    ld   a, h
+    cp   0x00           ; Pass?
+    jr   nz, .LFailed   ; No, so go report failure
 
-    LD   DE,.LPass      ;Pass message
-    LD   C,6            ;API 6
-    RST  0x30           ;  = Output message at DE
+    ld   de, .LPass     ; Pass message
+    ld   c, 6           ; API 6
+    rst  0x30           ;  = Output message at DE
 
-    LD   C,3            ;API 3
-    RST  0x30           ;  = Test for input character
-    JR   Z,Test         ;None, so repeat test
+    ld   c, 3           ; API 3
+    rst  0x30           ;  = Test for input character
+    jr   z, Test        ; None, so repeat test
 
-    LD   C,1            ;API 1
-    RST  0x30           ;  = Input character (flush it)
+    ld   c, 1           ; API 1
+    rst  0x30           ;  = Input character (flush it)
 
-    LD   C,7            ;API 7
-    RST  0x30           ;  = Output new line
+    ld   c, 7           ; API 7
+    rst  0x30           ;  = Output new line
 
-    RET
+    ret
 
 .LFailed:
-    LD   DE,.LFail      ;Fail message
-    LD   C,6            ;API 6
-    RST  0x30           ;  = Output message at DE
-    RET
+    ld   de, .LFail     ; Fail message
+    ld   c, 6           ; API 6
+    rst  0x30           ;  = Output message at DE
+    ret
 
-.LPass: .ASCIZ "Pass "
-.LFail: .ASCIZ "Fail\r\n"
+.LPass:
+    .asciz "Pass "
+.LFail:
+    .asciz "Fail\r\n"
 
-BeginTest:  ; Upper memory test begins here
+    ;; Upper memory test begins here
+BeginTest:
