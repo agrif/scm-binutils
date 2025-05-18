@@ -310,15 +310,23 @@ class Convert(Subcommand):
 
         # scan for local labels
         local_labels = {}
+        last_label = ''
         for line in asm.lines:
-            if line.label and line.label.startswith('@'):
-                local_labels[line.label] = '.L' + line.label[1:]
+            if line.label:
+                if line.label.startswith('@'):
+                    local_labels[(last_label, line.label)] = last_label + '.' + line.label[1:]
+                else:
+                    last_label = line.label
 
         # replace local labels
+        last_label = ''
         for line in asm.lines:
             # in the label part
-            if line.label and line.label in local_labels:
-                line.label = local_labels[line.label]
+            if line.label:
+                if line.label.startswith('@'):
+                    line.label = local_labels[(last_label, line.label)]
+                else:
+                    last_label = line.label
 
             # in the instruction
             if line.instr:
@@ -326,7 +334,7 @@ class Convert(Subcommand):
                 new_args = []
                 for arg in instr.args:
                     # somewhat bad, but usually works
-                    for k, v in local_labels.items():
+                    for (_, k), v in local_labels.items():
                         arg = arg.replace(k, v)
                     new_args.append(arg)
                 instr.args = new_args
@@ -334,7 +342,7 @@ class Convert(Subcommand):
 
             # in the comment
             if line.comment:
-                for k, v in local_labels.items():
+                for (_, k), v in local_labels.items():
                     line.comment = line.comment.replace(k, v)
 
         with self.open_output() as f:
