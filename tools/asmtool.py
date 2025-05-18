@@ -80,7 +80,8 @@ class AsmLine:
 
         label_column = None
         label = None
-        if ':' in line.split(';', 1)[0]:
+        # careful: trim off comment first, and only look before first string
+        if ':' in line.split(';', 1)[0].split('"', 1)[0]:
             label, line = line.split(':', 1)
             label_column, label, line_column = cls._parse_columns(label, line_column)
             line_column += 1 # for the :
@@ -334,7 +335,9 @@ class Convert(Subcommand):
                 new_args = []
                 for arg in instr.args:
                     # somewhat bad, but usually works
-                    for (_, k), v in local_labels.items():
+                    for (within, k), v in local_labels.items():
+                        if within != last_label:
+                            continue
                         arg = arg.replace(k, v)
                     new_args.append(arg)
                 instr.args = new_args
@@ -342,7 +345,9 @@ class Convert(Subcommand):
 
             # in the comment
             if line.comment:
-                for (_, k), v in local_labels.items():
+                for (within, k), v in local_labels.items():
+                    if within != last_label:
+                        continue
                     line.comment = line.comment.replace(k, v)
 
         with self.open_output() as f:
