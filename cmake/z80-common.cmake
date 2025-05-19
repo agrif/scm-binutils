@@ -7,7 +7,7 @@ endif()
 
 function(z80_add_linker_script TARGET VISIBILITY SCRIPT)
   get_filename_component(SCRIPT "${SCRIPT}" ABSOLUTE)
-  target_link_options(${TARGET} ${VISIBILITY} -T "${SCRIPT}")
+  target_link_options(${TARGET} ${VISIBILITY} "SHELL:-T \"${SCRIPT}\"")
 
   get_target_property(TARGET_TYPE ${TARGET} TYPE)
   if(TARGET_TYPE STREQUAL "INTERFACE_LIBRARY")
@@ -126,4 +126,10 @@ endfunction()
 
 function(z80_library TARGET)
   z80_preprocess_sources(${TARGET})
+endfunction()
+
+function(z80_keep_symbols TARGET)
+  foreach(SYMBOL IN LISTS ARGN)
+    target_link_options(${TARGET} PRIVATE "SHELL:-u ${SYMBOL}")
+  endforeach()
 endfunction()
