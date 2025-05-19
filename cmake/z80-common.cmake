@@ -115,3 +115,14 @@ function(z80_preprocess_sources TARGET)
 
   set_property(TARGET ${TARGET} PROPERTY SOURCES "${SOURCES}")
 endfunction()
+
+function(z80_executable TARGET)
+  z80_preprocess_sources(${TARGET})
+  z80_print_size(${TARGET})
+  z80_generate_binary(${TARGET})
+  z80_generate_hex(${TARGET})
+endfunction()
+
+function(z80_library TARGET)
+  z80_preprocess_sources(${TARGET})
+endfunction()
