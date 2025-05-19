@@ -5,6 +5,7 @@
 
     ;; The program fills all 64k RAM except the few bytes used by this code.
 
+    .global Test
 Test:
     ld   c, 0x55        ; Byte to fill memory with
 
