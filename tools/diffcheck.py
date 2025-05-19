@@ -7,6 +7,8 @@ import sys
 import tempfile
 
 TABLE = {
+    'apps/cf-info/cf-info.hex': 'SCMonitor/Apps/Compact_flash_information/SCMon_CF_Info_code8000.hex',
+    'apps/cf-info/cf-info-z280rc.hex': 'SCMonitor/Apps/Compact_flash_information/SCMon_CF_Info_Z280RC_code8000.hex',
     'apps/cf-test/cf-test.hex': 'SCMonitor/Apps/Compact_flash_test/SCMon_CF_Test_code8000.hex',
     'apps/cf-test/cf-test-z280rc.hex': 'SCMonitor/Apps/Compact_flash_test/SCMon_CF_Test_Z280RC_code8000.hex',
     'apps/memfill/memfill.hex': 'SCMonitor/Apps/Memory_fill/SCMon_MemFill_code8000.hex',
