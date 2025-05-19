@@ -7,6 +7,9 @@ import sys
 import tempfile
 
 TABLE = {
+    'apps/alphanumeric-lcd-linc80.hex': 'SCMonitor/Apps/Alphanumeric_LCD/SCMon_LiNC80_alphanumeric_LCD_code8000.hex',
+    'apps/alphanumeric-lcd-rc2014.hex': 'SCMonitor/Apps/Alphanumeric_LCD/SCMon_RC2014_alphanumeric_LCD_code8000.hex',
+    'apps/alphanumeric-lcd-z280rc.hex': 'SCMonitor/Apps/Alphanumeric_LCD/SCMon_Z280RC_alphanumeric_LCD_code8000.hex',
     'apps/cf-format.hex': 'SCMonitor/Apps/Compact_flash_format/SCMon_CF_Format_code8000.hex',
     'apps/cf-format-z280rc.hex': 'SCMonitor/Apps/Compact_flash_format/SCMon_CF_Format_Z280RC_code8000.hex',
     'apps/cf-info.hex': 'SCMonitor/Apps/Compact_flash_information/SCMon_CF_Info_code8000.hex',

@@ -1,6 +1,39 @@
 add_subdirectory(libs)
 
 #
+# alphanumeric-lcd
+#
+
+# LINC80 RC2014 Z280RC
+
+add_executable(alphanumeric-lcd-linc80 alphanumeric-lcd.S)
+target_link_libraries(alphanumeric-lcd-linc80 PRIVATE scm-api alphanumeric-lcd)
+target_link_options(alphanumeric-lcd-linc80 PRIVATE --gc-sections -Ttext=0x8000 -Tdata=0x9f00 --entry=Main)
+target_compile_definitions(alphanumeric-lcd-linc80 PRIVATE LINC80)
+z80_executable(alphanumeric-lcd-linc80)
+
+# reorder this symbol to appear first
+z80_keep_symbols(alphanumeric-lcd-linc80 aDelayInMS)
+
+add_executable(alphanumeric-lcd-rc2014 alphanumeric-lcd.S)
+target_link_libraries(alphanumeric-lcd-rc2014 PRIVATE scm-api alphanumeric-lcd)
+target_link_options(alphanumeric-lcd-rc2014 PRIVATE --gc-sections -Ttext=0x8000 -Tdata=0x9f00 --entry=Main)
+target_compile_definitions(alphanumeric-lcd-rc2014 PRIVATE RC2014)
+z80_executable(alphanumeric-lcd-rc2014)
+
+# reorder this symbol to appear first
+z80_keep_symbols(alphanumeric-lcd-rc2014 aDelayInMS)
+
+add_executable(alphanumeric-lcd-z280rc alphanumeric-lcd.S)
+target_link_libraries(alphanumeric-lcd-z280rc PRIVATE scm-api alphanumeric-lcd)
+target_link_options(alphanumeric-lcd-z280rc PRIVATE --gc-sections -Ttext=0x8000 -Tdata=0x9f00 --entry=Main)
+target_compile_definitions(alphanumeric-lcd-z280rc PRIVATE Z280RC)
+z80_executable(alphanumeric-lcd-z280rc)
+
+# reorder this symbol to appear first
+z80_keep_symbols(alphanumeric-lcd-z280rc aDelayInMS)
+
+#
 # cf-format
 #
 
