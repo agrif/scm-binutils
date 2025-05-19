@@ -104,7 +104,7 @@ function(z80_preprocess_sources TARGET)
     endif()
 
     get_filename_component(BASE "${SOURCE}" NAME_WLE)
-    set(PREPROCESSED "${CMAKE_CURRENT_BINARY_DIR}/${BASE}.s")
+    set(PREPROCESSED "${CMAKE_CURRENT_BINARY_DIR}/${TARGET}-${BASE}.s")
     set(SOURCEFULL "${CMAKE_CURRENT_SOURCE_DIR}/${SOURCE}")
 
     _z80_add_preprocessor_command(${TARGET} "${SOURCEFULL}" "${PREPROCESSED}" "${SOURCE}")
