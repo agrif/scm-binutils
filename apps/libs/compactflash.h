@@ -12,6 +12,28 @@
 // **********************************************************************
 
 // CF registers
+#ifdef COMPACTFLASH_Z280RC
+
+// Z280RC
+#define CF_BASE     $C0            // hcs Z280RC CF base
+#define CF_DATA     CF_BASE+0      // hcs
+#define CF_FEATURE  CF_BASE+3      // hcs
+#define CF_ERROR    CF_BASE+3      // hcs
+#define CF_SEC_CNT  CF_BASE+5      // hcs
+#define CF_SECTOR   CF_BASE+7      // hcs
+#define CF_CYL_LOW  CF_BASE+9      // hcs
+#define CF_CYL_HI   CF_BASE+$B     // hcs
+#define CF_HEAD     CF_BASE+$D     // hcs
+#define CF_STATUS   CF_BASE+$F     // hcs
+#define CF_COMMAND  CF_BASE+$F     // hcs
+#define CF_LBA0     CF_BASE+7      // hcs
+#define CF_LBA1     CF_BASE+9      // hcs
+#define CF_LBA2     CF_BASE+$B     // hcs
+#define CF_LBA3     CF_BASE+$D     // hcs
+
+#else
+
+// Generic
 #define CF_BASE     0x10
 #define CF_DATA     (CF_BASE+0)
 #define CF_FEATURE  (CF_BASE+1)
@@ -27,6 +49,8 @@
 #define CF_LBA1     (CF_BASE+4)
 #define CF_LBA2     (CF_BASE+5)
 #define CF_LBA3     (CF_BASE+6)
+
+#endif
 
 // CF Features
 #define CF_8BIT     1

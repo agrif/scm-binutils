@@ -8,9 +8,18 @@ import tempfile
 
 TABLE = {
     'apps/cf-test/cf-test.hex': 'SCMonitor/Apps/Compact_flash_test/SCMon_CF_Test_code8000.hex',
+    'apps/cf-test/cf-test-z280rc.hex': 'SCMonitor/Apps/Compact_flash_test/SCMon_CF_Test_Z280RC_code8000.hex',
     'apps/memfill/memfill.hex': 'SCMonitor/Apps/Memory_fill/SCMon_MemFill_code8000.hex',
     'apps/memtest/memtest.hex': 'SCMonitor/Apps/Memory_test/SCMon_MemTest_code8000.hex',
 }
+
+# some of the packaged hex files aren't up to date
+# you must rebuild them for these diffs to work
+# open the file in SCWorkshop.exe, configure it, build it, then
+# copy Output/IntelHex.hex to the correct location
+FILES_NEEDING_REBUILD = [
+    'SCMonitor/Apps/Compact_flash_test/SCMon_CF_Test_Z280RC_code8000.hex',
+]
 
 objcopy = ['z80-unknown-elf-objcopy']
 objdump = ['z80-unknown-elf-objdump', '-m', 'z80']
@@ -71,11 +80,19 @@ def main():
     args = parser.parse_args()
 
     error = False
+    rebuild_files = []
     for ours, scm in TABLE.items():
         path_ours = os.path.join(args.our_build, ours)
         path_scm = os.path.join(args.scm_source, scm)
         if hex_diff(path_scm, path_ours, scm, ours, disassemble=args.disassemble):
+            if scm in FILES_NEEDING_REBUILD:
+                rebuild_files.append(scm)
             error = True
+
+    if rebuild_files:
+        print('WARN: the following original files may need rebuilt:')
+        for scm in rebuild_files:
+            print(' ', scm)
 
     if error:
         print('ERR: differences found..')
