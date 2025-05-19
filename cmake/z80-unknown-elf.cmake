@@ -28,6 +28,9 @@ set(CMAKE_EXECUTABLE_SUFFIX_ASM .elf)
 # only use our root
 set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
 
+# we don't care about mixed permission segments
+add_link_options(--no-warn-rwx-segments)
+
 # set a target triple
 if(NOT Z80_TARGET_TRIPLET)
   if(DEFINED ENV{Z80_TARGET_TRIPLET})
