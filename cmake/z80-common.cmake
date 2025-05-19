@@ -29,7 +29,7 @@ function(z80_print_size TARGET)
     TARGET ${TARGET}
     POST_BUILD
     COMMAND ${CMAKE_SIZE} "$<TARGET_FILE:${TARGET}>"
-    COMMENT "Target ${TARGET} size: "
+    VERBATIM
   )
 endfunction()
 
@@ -53,7 +53,7 @@ function(_z80_generate_objcopy TARGET OUTPUT_EXTENSION OBJCOPY_BFD_OUTPUT)
     POST_BUILD
     COMMAND ${CMAKE_OBJCOPY} -O ${OBJCOPY_BFD_OUTPUT} "$<TARGET_FILE:${TARGET}>" ${OUTPUT_FILE_PATH}
     BYPRODUCTS ${OUTPUT_FILE_PATH}
-    COMMENT "Generating ${OUTPUT_FILE_NAME}"
+    VERBATIM
   )
 endfunction()
 
