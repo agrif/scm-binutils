@@ -33,7 +33,14 @@ function(z80_print_size TARGET)
   )
 endfunction()
 
-function(z80_generate_objcopy TARGET OUTPUT_EXTENSION)
+# if this function doesn't agree with z80_get_alternate,
+# change z80_get_alternate and not this
+function(z80_get_alternate_gen RESULT TARGET OUTPUT_EXTENSION)
+  set(${RESULT} "$<TARGET_FILE_DIR:${TARGET}>/$<TARGET_FILE_BASE_NAME:${TARGET}>${OUTPUT_EXTENSION}")
+  return(PROPAGATE ${RESULT})
+endfunction()
+
+function(z80_get_alternate RESULT TARGET OUTPUT_EXTENSION)
   get_target_property(TARGET_OUTPUT_NAME ${TARGET} OUTPUT_NAME)
   if(TARGET_OUTPUT_NAME)
     set(OUTPUT_FILE_NAME "${TARGET_OUTPUT_NAME}${OUTPUT_EXTENSION}")
@@ -43,11 +50,16 @@ function(z80_generate_objcopy TARGET OUTPUT_EXTENSION)
 
   get_target_property(RUNTIME_OUTPUT_DIRECTORY ${TARGET} RUNTIME_OUTPUT_DIRECTORY)
   if(RUNTIME_OUTPUT_DIRECTORY)
-    set(OUTPUT_FILE_PATH "${RUNTIME_OUTPUT_DIRECTORY}/${OUTPUT_FILE_NAME}")
+    set(${RESULT} "${RUNTIME_OUTPUT_DIRECTORY}/${OUTPUT_FILE_NAME}")
   else()
-    set(OUTPUT_FILE_PATH "${OUTPUT_FILE_NAME}")
+    set(${RESULT} "${OUTPUT_FILE_NAME}")
   endif()
 
+  return(PROPAGATE ${RESULT})
+endfunction()
+
+function(z80_generate_objcopy TARGET OUTPUT_EXTENSION)
+  z80_get_alternate(OUTPUT_FILE_PATH ${TARGET} "${OUTPUT_EXTENSION}")
   add_custom_command(
     TARGET ${TARGET}
     POST_BUILD
