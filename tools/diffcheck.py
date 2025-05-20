@@ -58,6 +58,28 @@ def diff_files(a, b):
     c = subprocess.run(diff + ['-u', a, b])
     return c.returncode
 
+def find_start_address(ihex):
+    s = subprocess.run(objdump + ['-b', 'ihex', '-s', ihex], check=True, stdout=subprocess.PIPE, encoding='utf-8')
+
+    start_addr = None
+    for line in s.stdout.splitlines():
+        line = line.strip()
+        try:
+            addr = line.split(maxsplit=1)[0]
+        except IndexError:
+            continue
+        try:
+            addr = int(addr, 16)
+        except ValueError:
+            continue
+        if start_addr is None or addr < start_addr:
+            start_addr = addr
+
+    if start_addr is None:
+        raise RuntimeError('start address not found')
+
+    return start_addr
+
 def hex_diff(path_a, path_b, name_a, name_b, disassemble=False):
     with tempfile.TemporaryDirectory(prefix='diffcheck.') as d:
         print(name_a, name_b)
@@ -65,8 +87,8 @@ def hex_diff(path_a, path_b, name_a, name_b, disassemble=False):
         bin_a = ihex_to_bin(path_a, os.path.join(d, 'a.bin'))
         bin_b = ihex_to_bin(path_b, os.path.join(d, 'b.bin'))
 
-        start_a = 0x8000
-        start_b = 0x8000
+        start_a = find_start_address(path_a)
+        start_b = find_start_address(path_b)
 
         if disassemble:
             asm_a = bin_to_asm(bin_a, os.path.join(d, 'a.lst'), start=start_a)
