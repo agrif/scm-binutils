@@ -21,6 +21,7 @@ TABLE = {
     'apps/cpm-loader.hex': 'SCMonitor/Apps/CPM_load_from_compact_flash/SCMon_CPM_loader_code8000.hex',
     'apps/memfill.hex': 'SCMonitor/Apps/Memory_fill/SCMon_MemFill_code8000.hex',
     'apps/memtest.hex': 'SCMonitor/Apps/Memory_test/SCMon_MemTest_code8000.hex',
+    'cpm-apps/download2.hex': 'SCMonitor/Apps/CPM_install_Download.com/Includes/DOWNLOAD2.hex',
 }
 
 # some of the packaged hex files aren't up to date

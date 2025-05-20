@@ -34,5 +34,5 @@ Message:
     .asciz "Start CP/M and enter SAVE 2 DOWNLOAD.COM\r\n"
 
 Program:
-    .incbin DOWNLOAD_BIN
+    .incbin DOWNLOAD2_BIN
 ProgramEnd:

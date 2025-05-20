@@ -31,7 +31,7 @@
     ;; Source the original DOWNLOAD2.HEX
     .data
 SrcAdr:
-    .incbin DOWNLOAD_BIN
+    .incbin DOWNLOAD2_BIN
     ;; (agrif) original includes these extra 8 bytes. bug in SCWorkshop?
     .fill 8, 1, 0xff
 SrcEnd:
