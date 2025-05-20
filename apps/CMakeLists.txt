@@ -1,5 +1,7 @@
 add_subdirectory(libs)
 
+add_subdirectory(cpm-install-download)
+
 #
 # alphanumeric-lcd
 #
