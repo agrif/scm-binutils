@@ -60,19 +60,19 @@
 #define FnDev6Out   0x1B           // Fn 0x1B: device 6 output
 
 // aOutputSysMsg: Message numbers
-#define kMsgNull    0x00           // Null message
-#define kMsgProdID  0x01           // "Small Computer Monitor "
-#define kMsgDevice  0x02           // "Devices detected:"
-#define kMsgAbout   0x03           // About SCMonitor inc version
-#define kMsgDevLst  0x04           // Device list
-#define kMsgMonFst  0x20           // First monitor message
-#define kMsgBadCmd  (kMsgMonFst+0) // "Bad command"
-#define kMsgBadPar  (kMsgMonFst+1) // "Bad parameter"
-#define kMsgSyntax  (kMsgMonFst+2) // "Syntax error"
-#define kMsgBPSet   (kMsgMonFst+3) // "Breakpoint set"
-#define kMsgBPClr   (kMsgMonFst+4) // "Breakpoint cleared"
-#define kMsgBPFail  (kMsgMonFst+5) // "Unable to set breakpoint here"
-#define kMsgHelp    (kMsgMonFst+6) // Help text
-#define kMsgNotAv   (kMsgMonFst+7) // "Feature not included"
-#define kMsgReady   (kMsgMonFst+8) // "Ready"
-#define kMsgFileEr  (kMsgMonFst+9) // "File error"
+#define kMsgNull    0x00            // Null message
+#define kMsgProdID  0x01            // "Small Computer Monitor "
+#define kMsgDevice  0x02            // "Devices detected:"
+#define kMsgAbout   0x03            // About SCMonitor inc version
+#define kMsgDevLst  0x04            // Device list
+#define kMsgMonFst  0x20            // First monitor message
+#define kMsgBadCmd  +(kMsgMonFst+0) // "Bad command"
+#define kMsgBadPar  +(kMsgMonFst+1) // "Bad parameter"
+#define kMsgSyntax  +(kMsgMonFst+2) // "Syntax error"
+#define kMsgBPSet   +(kMsgMonFst+3) // "Breakpoint set"
+#define kMsgBPClr   +(kMsgMonFst+4) // "Breakpoint cleared"
+#define kMsgBPFail  +(kMsgMonFst+5) // "Unable to set breakpoint here"
+#define kMsgHelp    +(kMsgMonFst+6) // Help text
+#define kMsgNotAv   +(kMsgMonFst+7) // "Feature not included"
+#define kMsgReady   +(kMsgMonFst+8) // "Ready"
+#define kMsgFileEr  +(kMsgMonFst+9) // "File error"

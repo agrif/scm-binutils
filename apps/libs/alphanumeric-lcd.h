@@ -19,8 +19,8 @@
 // Cursor position values for the start of each line
 #define kLCD_Line1  0x00
 #define kLCD_Line2  0x40
-#define kLCD_Line3  (kLCD_Line1+kLCDWidth)
-#define kLCD_Line4  (kLCD_Line1+kLCDWidth)
+#define kLCD_Line3  +(kLCD_Line1+kLCDWidth)
+#define kLCD_Line4  +(kLCD_Line1+kLCDWidth)
 
 // Instructions to send as A register to fLCD_Inst
 #define kLCD_Clear  0b00000001     // LCD clear
