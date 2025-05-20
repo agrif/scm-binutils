@@ -81,7 +81,7 @@ class AsmLine:
         label_column = None
         label = None
         # careful: trim off comment first, and only look before first string
-        if ':' in line.split(';', 1)[0].split('"', 1)[0]:
+        if ':' in line.split(';', 1)[0].split('"', 1)[0].split("'", 1)[0]:
             label, line = line.split(':', 1)
             label_column, label, line_column = cls._parse_columns(label, line_column)
             line_column += 1 # for the :
