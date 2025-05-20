@@ -94,6 +94,15 @@ z80_executable(cf-test-z280rc)
 z80_keep_symbols(cf-test-z280rc cfRead)
 
 #
+# cpm-loader
+#
+
+add_executable(cpm-loader cpm-loader.S)
+target_link_options(cpm-loader PRIVATE -Ttext=0x8000 -Tdata=0x8800 --entry=Main)
+target_include_directories(cpm-loader PRIVATE $<TARGET_PROPERTY:compactflash,INTERFACE_INCLUDE_DIRECTORIES>)
+z80_executable(cpm-loader)
+
+#
 # memfill
 #
 

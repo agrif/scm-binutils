@@ -16,6 +16,7 @@ TABLE = {
     'apps/cf-info-z280rc.hex': 'SCMonitor/Apps/Compact_flash_information/SCMon_CF_Info_Z280RC_code8000.hex',
     'apps/cf-test.hex': 'SCMonitor/Apps/Compact_flash_test/SCMon_CF_Test_code8000.hex',
     'apps/cf-test-z280rc.hex': 'SCMonitor/Apps/Compact_flash_test/SCMon_CF_Test_Z280RC_code8000.hex',
+    'apps/cpm-loader.hex': 'SCMonitor/Apps/CPM_load_from_compact_flash/SCMon_CPM_loader_code8000.hex',
     'apps/memfill.hex': 'SCMonitor/Apps/Memory_fill/SCMon_MemFill_code8000.hex',
     'apps/memtest.hex': 'SCMonitor/Apps/Memory_test/SCMon_MemTest_code8000.hex',
 }
