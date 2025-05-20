@@ -33,12 +33,12 @@ function(z80_print_size TARGET)
   )
 endfunction()
 
-function(_z80_generate_objcopy TARGET OUTPUT_EXTENSION OBJCOPY_BFD_OUTPUT)
+function(z80_generate_objcopy TARGET OUTPUT_EXTENSION)
   get_target_property(TARGET_OUTPUT_NAME ${TARGET} OUTPUT_NAME)
   if(TARGET_OUTPUT_NAME)
-    set(OUTPUT_FILE_NAME "${TARGET_OUTPUT_NAME}.${OUTPUT_EXTENSION}")
+    set(OUTPUT_FILE_NAME "${TARGET_OUTPUT_NAME}${OUTPUT_EXTENSION}")
   else()
-    set(OUTPUT_FILE_NAME "${TARGET}.${OUTPUT_EXTENSION}")
+    set(OUTPUT_FILE_NAME "${TARGET}${OUTPUT_EXTENSION}")
   endif()
 
   get_target_property(RUNTIME_OUTPUT_DIRECTORY ${TARGET} RUNTIME_OUTPUT_DIRECTORY)
@@ -51,18 +51,18 @@ function(_z80_generate_objcopy TARGET OUTPUT_EXTENSION OBJCOPY_BFD_OUTPUT)
   add_custom_command(
     TARGET ${TARGET}
     POST_BUILD
-    COMMAND ${CMAKE_OBJCOPY} -O ${OBJCOPY_BFD_OUTPUT} "$<TARGET_FILE:${TARGET}>" ${OUTPUT_FILE_PATH}
+    COMMAND ${CMAKE_OBJCOPY} ${ARGN} "$<TARGET_FILE:${TARGET}>" ${OUTPUT_FILE_PATH}
     BYPRODUCTS ${OUTPUT_FILE_PATH}
     VERBATIM
   )
 endfunction()
 
 function(z80_generate_binary TARGET)
-  _z80_generate_objcopy(${TARGET} "bin" "binary")
+  z80_generate_objcopy(${TARGET} ".bin" -O binary)
 endfunction()
 
 function(z80_generate_hex TARGET)
-  _z80_generate_objcopy(${TARGET} "hex" "ihex")
+  z80_generate_objcopy(${TARGET} ".hex" -O ihex)
 endfunction()
 
 # https://stackoverflow.com/a/66896673
