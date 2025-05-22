@@ -24,6 +24,45 @@ class AsmInstr:
             arg_align = len(op) + (len(raw_args) - len(strip_args))
             args = strip_args.split(',')
 
+        # re-join components that are inside strings
+        quote_char = None
+        escaped = False
+        gather = ''
+        new_args = []
+        for i, arg in enumerate(args):
+            for c in arg:
+                if quote_char:
+                    # we're inside a string
+                    if escaped:
+                        escaped = False
+                        continue
+                    elif c == '\\':
+                        escaped = True
+                        continue
+                    elif c == quote_char:
+                        assert escaped == False
+                        quote_char = None
+                        continue
+                elif c in '\'""':
+                    # we're outside a string, but we see a quote
+                    quote_char = c
+                    continue
+
+            if quote_char:
+                # we're inside a string at a , boundary
+                gather += arg + (',' if i < len(args) - 1 else '')
+            else:
+                # we're outside a string at a , boundary
+                gather += arg
+                new_args.append(gather)
+                gather = ''
+
+        if gather:
+            # leftover unparsed quote end, this is probably a syntax error
+            new_args.append(gather)
+
+        args = new_args
+
         return cls(
             op=op,
             arg_align=arg_align,
