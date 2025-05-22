@@ -1,6 +1,7 @@
 add_subdirectory(libs)
 
 add_subdirectory(cpm-install-download)
+add_subdirectory(msbasic)
 
 #
 # alphanumeric-lcd

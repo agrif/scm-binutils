@@ -21,6 +21,9 @@ TABLE = {
     'apps/cpm-loader.hex': 'SCMonitor/Apps/CPM_load_from_compact_flash/SCMon_CPM_loader_code8000.hex',
     'apps/memfill.hex': 'SCMonitor/Apps/Memory_fill/SCMon_MemFill_code8000.hex',
     'apps/memtest.hex': 'SCMonitor/Apps/Memory_test/SCMon_MemTest_code8000.hex',
+    'apps/msbasic/msbasic-2000-4000.hex' : 'SCMonitor/Apps/MSBASIC_adapted_by_GSearle/SCMon_BASIC_code2000_data4000.hex',
+    'apps/msbasic/msbasic-2000-8000.hex' : 'SCMonitor/Apps/MSBASIC_adapted_by_GSearle/SCMon_BASIC_code2000_data8000.hex',
+    'apps/msbasic/msbasic-8000-a000.hex' : 'SCMonitor/Apps/MSBASIC_adapted_by_GSearle/SCMon_BASIC_code8000_dataA000.hex',
     'cpm-apps/download2.hex': 'SCMonitor/Apps/CPM_install_Download.com/Includes/DOWNLOAD2.hex',
 }
 
