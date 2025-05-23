@@ -1,0 +1,129 @@
+[
+    {
+        "a": "[scm]/SCMonitor/Apps/Alphanumeric_LCD/SCMon_LiNC80_alphanumeric_LCD_code8000.hex",
+        "b": "[build]/apps/alphanumeric-lcd-linc80.hex",
+        "start": "0x8000",
+        "a_sha1": "f5e552498b6072e30810f0a1b91a288a2a391f11",
+        "bin_sha1": "e719be899fb0d96bd6dbc742add1b3f3091483b8"
+    },
+    {
+        "a": "[scm]/SCMonitor/Apps/Alphanumeric_LCD/SCMon_RC2014_alphanumeric_LCD_code8000.hex",
+        "b": "[build]/apps/alphanumeric-lcd-rc2014.hex",
+        "start": "0x8000",
+        "a_sha1": "b542d5d00b6b98fa6a5926924f5b2d98e869a6f1",
+        "bin_sha1": "91f51b6c8dbc2c82e54aecdef9e706a3757ceef3"
+    },
+    {
+        "a": "[scm]/SCMonitor/Apps/Alphanumeric_LCD/SCMon_Z280RC_alphanumeric_LCD_code8000.hex",
+        "b": "[build]/apps/alphanumeric-lcd-z280rc.hex",
+        "start": "0x8000",
+        "a_sha1": "101eae83eb02731b63600f929b39231645dc17b4",
+        "bin_sha1": "eba56f19973ec12226c3f63b902db54222c3dc30"
+    },
+    {
+        "a": "[scm]/SCMonitor/Apps/Compact_flash_format/SCMon_CF_Format_code8000.hex",
+        "b": "[build]/apps/cf-format.hex",
+        "start": "0x8000",
+        "a_sha1": "3aa6a10781c38bacce4fc6b0b88828b09bc0d7d5",
+        "bin_sha1": "65937f70ff53af11e1191823372261e83bd0f06a"
+    },
+    {
+        "a": "[scm]/SCMonitor/Apps/Compact_flash_format/SCMon_CF_Format_Z280RC_code8000.hex",
+        "b": "[build]/apps/cf-format-z280rc.hex",
+        "start": "0x8000",
+        "a_sha1": "fb0469677ff674e64716e1e685a02f888c264d89",
+        "bin_sha1": "567d5e4e4024bf2dfa6a78e208b420932ba03f6a"
+    },
+    {
+        "a": "[scm]/SCMonitor/Apps/Compact_flash_information/SCMon_CF_Info_code8000.hex",
+        "b": "[build]/apps/cf-info.hex",
+        "start": "0x8000",
+        "a_sha1": "16d3536d93ff5fcb23070e97d2a43d0457616864",
+        "bin_sha1": "c4da4e0178e494d9a45d60c20da0d918f40c0fa8"
+    },
+    {
+        "a": "[scm]/SCMonitor/Apps/Compact_flash_information/SCMon_CF_Info_Z280RC_code8000.hex",
+        "b": "[build]/apps/cf-info-z280rc.hex",
+        "start": "0x8000",
+        "a_sha1": "e8f0eec9bade0507ae42e6613d104740493388f4",
+        "bin_sha1": "2defe14c40294ec1d04283fa16d3924d75909cbf"
+    },
+    {
+        "a": "[scm]/SCMonitor/Apps/Compact_flash_test/SCMon_CF_Test_code8000.hex",
+        "b": "[build]/apps/cf-test.hex",
+        "start": "0x8000",
+        "a_sha1": "f6639f61f984f586a00945fa342375d43ff0eec6",
+        "bin_sha1": "231b39b1a6bb19b33021bb1759804d02f5287802"
+    },
+    {
+        "a": "[scm]/SCMonitor/Apps/Compact_flash_test/SCMon_CF_Test_Z280RC_code8000.hex",
+        "b": "[build]/apps/cf-test-z280rc.hex",
+        "needs_rebuild": true,
+        "start": "0x8000",
+        "a_sha1": "78a3f065b581c030543eb6bab9735d407b839dfc",
+        "bin_sha1": "7b175beb008233128e74729263af2fcf62d84f02"
+    },
+    {
+        "a": "[scm]/SCMonitor/Apps/CPM_install_Download.com/SCMon_LiNC80_Download_code8000.hex",
+        "b": "[build]/apps/cpm-install-download/cpm-install-download-linc80.hex",
+        "start": "0x4100",
+        "a_sha1": "d756b1ebc2f956e9a805bd0090392a34adb8916d",
+        "bin_sha1": "9cab7713aae6660dce0658974d4b30740d4306d6"
+    },
+    {
+        "a": "[scm]/SCMonitor/Apps/CPM_install_Download.com/SCMon_RC2014_Download_code8000.hex",
+        "b": "[build]/apps/cpm-install-download/cpm-install-download-rc2014.hex",
+        "start": "0x8000",
+        "a_sha1": "aebd347f8ccffc5ee2c756d20ee29c35a769a8de",
+        "bin_sha1": "290dd13d8552c1a3c22574235778a535508aac50"
+    },
+    {
+        "a": "[scm]/SCMonitor/Apps/CPM_load_from_compact_flash/SCMon_CPM_loader_code8000.hex",
+        "b": "[build]/apps/cpm-loader.hex",
+        "start": "0x8000",
+        "a_sha1": "9b6714af68613a7fc59c44c7ad548b1c433d5bc1",
+        "bin_sha1": "58279ee44c34649aef5c3a7a72f353b67b73d8c1"
+    },
+    {
+        "a": "[scm]/SCMonitor/Apps/Memory_fill/SCMon_MemFill_code8000.hex",
+        "b": "[build]/apps/memfill.hex",
+        "start": "0x8000",
+        "a_sha1": "47b9892694461cc39488536e7545313db24d4ae0",
+        "bin_sha1": "e300592198d001bb9f3e8449aaab5f63b7817f6a"
+    },
+    {
+        "a": "[scm]/SCMonitor/Apps/Memory_test/SCMon_MemTest_code8000.hex",
+        "b": "[build]/apps/memtest.hex",
+        "start": "0x8000",
+        "a_sha1": "f6eb3872860de7c890eb06331ca7efae0bd6a23a",
+        "bin_sha1": "cff1bc2cb54573abe59065532a85fcf37a6d647f"
+    },
+    {
+        "a": "[scm]/SCMonitor/Apps/MSBASIC_adapted_by_GSearle/SCMon_BASIC_code2000_data4000.hex",
+        "b": "[build]/apps/msbasic/msbasic-2000-4000.hex",
+        "start": "0x2000",
+        "a_sha1": "da5276db09c0498e5bbf60bdb80d3afb4144dd8d",
+        "bin_sha1": "5ca24ca883dc2bd758afe9f124025f47f2c1286c"
+    },
+    {
+        "a": "[scm]/SCMonitor/Apps/MSBASIC_adapted_by_GSearle/SCMon_BASIC_code2000_data8000.hex",
+        "b": "[build]/apps/msbasic/msbasic-2000-8000.hex",
+        "start": "0x2000",
+        "a_sha1": "04bf54b8d4b0dadba8f46baf325a2d14c2603d73",
+        "bin_sha1": "32a7f424a29b145a38687a3d0304049660184241"
+    },
+    {
+        "a": "[scm]/SCMonitor/Apps/MSBASIC_adapted_by_GSearle/SCMon_BASIC_code8000_dataA000.hex",
+        "b": "[build]/apps/msbasic/msbasic-8000-a000.hex",
+        "start": "0x8000",
+        "a_sha1": "042294179eba9b2ac64b674af4fab87b336a33de",
+        "bin_sha1": "e2a70d81fd50caa7d37f146829031cc70fbd27f3"
+    },
+    {
+        "a": "[scm]/SCMonitor/Apps/CPM_install_Download.com/Includes/DOWNLOAD2.hex",
+        "b": "[build]/cpm-apps/download2.hex",
+        "start": "0x4100",
+        "a_sha1": "998023a302bd3f1d3f1d1967fdea8843f5e0a7e5",
+        "bin_sha1": "c3f6fa9fd6a10c00e489e9ce6e91fa20fd75dc0c"
+    }
+]
