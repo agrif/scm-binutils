@@ -5,6 +5,8 @@ if(CMAKE_VERSION VERSION_LESS "3.27")
   message(FATAL_ERROR "This file requires CMake 3.27 or later.")
 endif()
 
+get_filename_component(Z80_CMAKE_DIR ${CMAKE_CURRENT_LIST_FILE} DIRECTORY)
+
 function(z80_add_linker_script TARGET VISIBILITY SCRIPT)
   get_filename_component(SCRIPT "${SCRIPT}" ABSOLUTE)
   target_link_options(${TARGET} ${VISIBILITY} "SHELL:-T \"${SCRIPT}\"")
@@ -144,4 +146,17 @@ function(z80_keep_symbols TARGET)
   foreach(SYMBOL IN LISTS ARGN)
     target_link_options(${TARGET} PRIVATE "SHELL:-u ${SYMBOL}")
   endforeach()
+endfunction()
+
+function(z80_globalize_symbols TARGET)
+  # call out to a seperate file to expand $<TARGET_OBJECTS:..>
+  add_custom_command(
+    TARGET ${TARGET}
+    PRE_LINK
+    COMMAND ${CMAKE_COMMAND}
+    "-DOBJECTS=$<TARGET_OBJECTS:${TARGET}>"
+    "-DCMAKE_OBJCOPY=${CMAKE_OBJCOPY}"
+    -P "${Z80_CMAKE_DIR}/z80-common-globalize-symbols.cmake"
+    VERBATIM
+  )
 endfunction()
