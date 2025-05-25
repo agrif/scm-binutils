@@ -1,26 +1,44 @@
 # Small Computer Monitor for GNU Binutils
 
-This is a version of the [Small Computer Monitor][scm] for z80 by Stephen C. Cousins,
-modified to build with the GNU assembler and linker.
+This is a version of the [Small Computer Monitor][scm] for z80 by
+Stephen C. Cousins, modified to build with the GNU assembler and
+linker.
 
  [SCM]: https://smallcomputercentral.com/small-computer-monitor/
 
-It also includes code originally by [Grant Searle][searle] and others. Attribution is
-included in the sources as appropriate.
+It also includes code originally by [Grant Searle][searle] and
+others. Attribution is included in the sources as appropriate.
 
  [searle]: http://www.searle.wales/
 
 ## Building
 
-You must have a version of [GNU Binutils][binutils] built for z80 ELF somewhere in
-your PATH, with names like `z80-unknown-elf-as`. If these are not on your PATH, you
-can set the `Z80_TOOLCHAIN_PATH` CMake variable to point their prefix.
+This project uses [CMake][cmake] and [GNU Binutils][binutils].
 
+ [cmake]: https://cmake.org/
  [binutils]: https://www.gnu.org/software/binutils/
 
+You must have a version of GNU Binutils built for z80 ELF somewhere in
+your PATH, with names like `z80-unknown-elf-as`. If these are not on
+your PATH, you can set the `Z80_TOOLCHAIN_PATH` CMake variable to
+point their prefix.
+
+You can configure and build such a copy of Binutils from source:
+
+~~~{.sh}
+cd binutils-2.44/
+mkdir build prefix && cd build
+../configure --target=z80-unknown-elf --program-prefix=z80-unknown-elf- --prefix=$(realpath ../prefix)
+~~~~
+
+This will place a compiled version of Z80 Binutils in the `prefix`
+directory inside the Binutils source.
+
+Once you have these tools, you can build this project:
+
 ~~~~{.sh}
-mkdir build
-cd build
+cd scm-binutils/
+mkdir build && cd build
 cmake ..
 make
 ~~~~
