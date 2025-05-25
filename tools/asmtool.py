@@ -270,7 +270,7 @@ class Format(Subcommand):
     known_tokens = ['af', 'bc', 'de', 'hl'] \
         + ['ix' + s for s in ['', 'h', 'l']] \
         + ['iy' + s for s in ['', 'h', 'l']] \
-        + ['(hl)', '(c)', '(bc)'] \
+        + ['(sp)', '(hl)', '(c)', '(bc)', '(de)'] \
         + list('afbcdehl') \
         + ['c', 'nc', 'z', 'nz', 'm', 'p', 'pe', 'po']
 
