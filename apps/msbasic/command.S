@@ -2,7 +2,7 @@
 
     #include "msbasic.h"
 
-    .section .rodata
+    .section .rodata.errmsg
 
 .ERRMSG:
     .asciz " Error"
@@ -16,7 +16,7 @@ BRKMSG:
     .asciz "Break"
 
     ;; force a new section so that this is *after* the above
-    .section .text.after
+    .section .text.bakstk
 
 BAKSTK:
     ld   hl, 4          ; Look for "FOR" block with
@@ -50,7 +50,7 @@ MOVUP:
     call ENFMEM         ; See if enough memory
 MOVSTR:
     push bc             ; Save end of source
-    ex   (SP), hl       ; Swap source and dest" end
+    ex   (sp), hl       ; Swap source and dest" end
     pop  bc             ; Get end of destination
 .MOVLP:
     call CPDEHL         ; See if list moved
@@ -178,7 +178,7 @@ PRNTOK:
     ex   de, hl         ; Next line address in DE
     ld   hl, (PROGND)   ; End of program
 .SFTPRG:
-    ld   a, (DE)        ; Shift rest of program down
+    ld   a, (de)        ; Shift rest of program down
     ld   (bc), a
     inc  bc             ; Next destination
     inc  de             ; Next source
@@ -193,7 +193,7 @@ PRNTOK:
     pop  af             ; Get status
     jp   z, .SETPTR     ; No text - Set up pointers
     ld   hl, (PROGND)   ; Get end of program
-    ex   (SP), hl       ; Get length of input line
+    ex   (sp), hl       ; Get length of input line
     pop  bc             ; End of program to BC
     add  hl, bc         ; Find new end
     push hl             ; Save new end
@@ -211,7 +211,7 @@ PRNTOK:
     inc  hl             ; To first byte in line
     ld   de, BUFFER     ; Copy buffer to program
 .MOVBUF:
-    ld   a, (DE)        ; Get source
+    ld   a, (de)        ; Get source
     ld   (hl), a        ; Save destinations
     inc  hl             ; Next source
     inc  de             ; Next destination
@@ -379,7 +379,7 @@ PROMPT:
 
 .NXTBYT:
     inc  de             ; Look through rest of word
-    ld   a, (DE)        ; Get byte from table
+    ld   a, (de)        ; Get byte from table
     or   a              ; End of word ?
     jp   m, .MATCH      ; Yes - Match found
     ld   c, a           ; Save it
@@ -412,7 +412,7 @@ PROMPT:
     pop  de             ; Get destination address
 .MOVDIR:
     inc  hl             ; Next source in buffer
-    ld   (DE), a        ; Put byte in buffer
+    ld   (de), a        ; Put byte in buffer
     inc  de             ; Move up buffer
     inc  c              ; Increment length of buffer
     sub  ':'            ; End of statement?
@@ -433,18 +433,18 @@ PROMPT:
     jp   z, .MOVDIR     ; Yes - Get next one
 .CPYLIT:
     inc  hl             ; Move up source string
-    ld   (DE), a        ; Save in destination
+    ld   (de), a        ; Save in destination
     inc  c              ; Increment length
     inc  de             ; Move up destination
     jp   .NXTCHR        ; Repeat
 
 .ENDBUF:
     ld   hl, BUFFER-1   ; Point to start of buffer
-    ld   (DE), a        ; Mark end of buffer (A = 00)
+    ld   (de), a        ; Mark end of buffer (A = 00)
     inc  de
-    ld   (DE), a        ; A = 00
+    ld   (de), a        ; A = 00
     inc  de
-    ld   (DE), a        ; A = 00
+    ld   (de), a        ; A = 00
     ret
 
 .DODEL:
@@ -558,10 +558,10 @@ CPDEHL:
 
 CHKSYN:
     ld   a, (hl)        ; Check syntax of character
-    ex   (SP), hl       ; Address of test byte
+    ex   (sp), hl       ; Address of test byte
     cp   (hl)           ; Same as in code string?
     inc  hl             ; Return address
-    ex   (SP), hl       ; Put it back
+    ex   (sp), hl       ; Put it back
     jp   z, GETCHR      ; Yes - Get next character
     jp   SNERR          ; Different - ?SN Error
 

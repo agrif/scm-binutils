@@ -5,7 +5,8 @@
 
     ;; INITIALISATION TABLE --------------------------------------------------
 
-WRKSPC:                 ; BASIC Work space    <SCC> original 0x2045
+    ;; BASIC Work space    <SCC> original 0x2045
+WRKSPC:
     jp   WARMST         ; Warm start jump
 USR:
     jp   FCERR          ; "USR (X)" jump (Set to Error)

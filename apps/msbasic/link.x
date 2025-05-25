@@ -32,5 +32,6 @@ SECTIONS
     .text :
     {
         *(.rodata .rodata.* .text .text.*);
-    } > PROGRAM
+        . = ALIGN(0x10);
+    } > PROGRAM =0xff
 }

@@ -5,7 +5,7 @@
     .section .init
 
 COLD:
-    jp  .STARTB         ; Jump for cold start
+    jp   .STARTB        ; Jump for cold start
 WARM:
     jp   WARMST         ; Jump for warm start
 .STARTB:
@@ -26,7 +26,7 @@ INIT:
     ld   b, INITLE+3    ; Bytes to copy
     ld   hl, WRKSPC     ; Into workspace RAM
 .COPY:
-    ld   a, (DE)        ; Get source
+    ld   a, (de)        ; Get source
     ld   (hl), a        ; To destination
     inc  hl             ; Next destination
     inc  de             ; Next source

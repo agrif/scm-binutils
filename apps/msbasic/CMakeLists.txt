@@ -1,4 +1,4 @@
-list(APPEND MSBASIC_SOURCES init.S tables.s workspace.s command.S msbasic.S)
+list(APPEND MSBASIC_SOURCES init.S tables.s workspace.s command.S evaluate.S float.s evaluate2.S)
 
 add_executable(msbasic-searle ${MSBASIC_SOURCES})
 z80_add_linker_script(msbasic-searle PRIVATE link.x)
