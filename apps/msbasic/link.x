@@ -10,13 +10,18 @@ SECTIONS
 {
     .init :
     {
-        *(.init .init.*)
+        *(.init .init.* .init.rodata .init.rodata.*)
     } > PROGRAM
 
     .data :
     {
-        *(.data .data.*)
-    } > PROGRAM AT > WORKSPC
+        INITAB = LOADADDR(.data);
+
+        *(.data .data.*);
+
+        INITLE = SIZEOF(.data);
+        INITBE = INITAB + INITLE;
+    } > WORKSPC AT > PROGRAM
 
     .bss (NOLOAD) :
     {
@@ -26,6 +31,6 @@ SECTIONS
 
     .text :
     {
-        *(.text .text.*)
+        *(.rodata .rodata.* .text .text.*);
     } > PROGRAM
 }
