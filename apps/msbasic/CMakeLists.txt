@@ -1,6 +1,7 @@
 list(APPEND MSBASIC_SOURCES init.S tables.s workspace.s command.S evaluate.S float.s evaluate2.S)
 
 add_executable(msbasic-searle ${MSBASIC_SOURCES})
+target_compile_definitions(msbasic-searle PRIVATE BUILD_GRANTS_ORIGINAL)
 z80_add_linker_script(msbasic-searle PRIVATE link.x)
 target_link_options(msbasic-searle PRIVATE --defsym=kORG=0x0150 --defsym=kWRKSPC=0x2045)
 z80_globalize_symbols(msbasic-searle)
