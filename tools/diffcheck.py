@@ -163,7 +163,7 @@ class FileCheck:
         if self.needs_rebuild:
             data['needs_rebuild'] = self.needs_rebuild
 
-        if self.start:
+        if self.start is not None:
             data['start'] = hex(self.start)
         if self.a_sha1:
             data['a_sha1'] = self.a_sha1
