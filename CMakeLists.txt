@@ -5,3 +5,4 @@ project(scc LANGUAGES ASM C)
 
 add_subdirectory(apps)
 add_subdirectory(cpm-apps)
+add_subdirectory(src)
