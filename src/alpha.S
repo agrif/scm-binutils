@@ -761,7 +761,6 @@ iMemTop:
     .equ Hardware_Initialise, 0x1d30
     .equ RomInitialise, 0x1ae3
     .equ szStartup, 0x1d29
-    .equ CLILoop, 0x0f72
     .equ iHwFlags, 0xfeaf
     .equ Hardware_Signon, 0x1dae
     .equ Hardware_Devices, 0x1dce
@@ -771,11 +770,7 @@ iMemTop:
     .equ Hardware_PollTimer, 0x1d9f
 
     ;; from api.S
-    .equ CLIExecute, 0x0fa2
     .equ RomGetPtr, 0x1b81
-    .equ CLISkipDelim, 0x0ff4
-    .equ CLISkipNonDeli, 0x0feb
-    .equ CLIGetHexParam, 0x0ffd
 
     ;; from utilities.S
     .equ DisWrInstruction, 0x141b
@@ -789,3 +784,12 @@ iMemTop:
     ;; from breakpoint.S
     .equ DisGetNextAddress, 0x1522
     .equ EndOfMonitor, 0x001e   ; uncomment in link.x to restore
+
+    ;; from commands.S
+    .equ HexLoad, 0x1a84
+    .equ RomExFile, 0x1b86
+    .equ RomSearchInit, 0x1b45
+    .equ RomSearchNext, 0x1b4d
+    .equ RomGetName, 0x1c0f
+    .equ RomGetType, 0x1c16
+    .equ RomGetHlp, 0x1bfb

@@ -8,7 +8,7 @@ list(APPEND SCM_SOURCES api.S fdos.S)
 list(APPEND SCM_SOURCES strings.S utilities.S)
 
 # monitor
-list(APPEND SCM_SOURCES monitor.S assembler.S breakpoint.S)
+list(APPEND SCM_SOURCES monitor.S assembler.S breakpoint.S commands.S)
 
 # optionally
 # monitor: monitor.S assembler.S breakpoint.S commands.S disassembler.S hexloader.S script.S

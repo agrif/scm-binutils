@@ -127,6 +127,11 @@
 #define kMsgFileEr +(kMsgMonFst+9) // File error
 #define kMsgMonLst kMsgFileEr   // Last monitor message
 
+// (commands) Error reporting flags
+#define kReportBad 1            // Report bad hex parameter
+#define kReportMis 2            // Report missing parameter
+#define kReportAny 3            // Report any error
+
 // (disassembler) Disassembly constants
 #define kDisBrack  5            // Bracket flag
 #define kDisImmed  4            // Immediate value flag
