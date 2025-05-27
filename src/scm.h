@@ -27,7 +27,6 @@
 #include "config.h"
 
 // set kHardID based on hardware defined in config.h
-
 #if defined(Custom)
 #define kHardID 0
 #elif defined(Simulated_Z80)
@@ -56,7 +55,6 @@
 #define kInputSize 0x80         // Size of kInputBuf
 #define kStrSize   0x80         // Size of kStrBuf
 
-
 // Common constants
 #define kNull      0x00         // Null character/byte (0x00)
 #define kNewLine   0x05         // New line character (0x05)
@@ -71,6 +69,48 @@
 #define kColon     0x3a         // Colon character (0x3A)
 #define kSemicolon 0x3b         // Semicolon character (0x3B)
 #define kDelete    0x7f         // Delete character (0x7F)
+
+// The jump table contains a number of "JP nn" instructions which are
+// used to redirect functions. Each entry in the table takes 3 bytes.
+// The jump table is created in RAM on cold start of the monitor.
+// Jump table constants - jump number (0 to n)
+#define kFnNMI     0x00         // Fn 0x00: non-maskable interrupt handler
+#define kFnRST08   0x01         // Fn 0x01: restart 08 handler
+#define kFnRST10   0x02         // Fn 0x02: restart 10 handler
+#define kFnRST18   0x03         // Fn 0x03: restart 18 handler
+#define kFnRST20   0x04         // Fn 0x04: restart 20 handler
+#define kFnRST28   0x05         // Fn 0x05: restart 18 breakpoint
+#define kFnRST30   0x06         // Fn 0x06: restart 30 API handler
+#define kFnINT     0x07         // Fn 0x07: restart 38 interrupt handler
+#define kFnConIn   0x08         // Fn 0x08: console input character
+#define kFnConOut  0x09         // Fn 0x09: console output character
+//#define FnConISta 0x0A        // Fn 0x0A: console get input status
+//#define FnConOSta 0x0B        // Fn 0x0B: console get output status
+#define kFnIdle    0x0C         // Fn 0x0C: jump to idle handler
+#define kFnTimer1  0x0D         // Fn 0x0D: jump to timer 1 handler
+#define kFnTimer2  0x0E         // Fn 0x0E: jump to timer 2 handler
+#define kFnTimer3  0x0F         // Fn 0x0F: jump to timer 3 handler
+//#define FnDevN    0x10        // Fn 0x10: device 1 to n input & output
+#define kFnDev1In  0x10         // Fn 0x10: device 1 input
+#define kFnDev1Out 0x11         // Fn 0x11: device 1 output
+//#define kFnDev2In 0x12        // Fn 0x12: device 2 input
+//#define FnDev2Out 0x13        // Fn 0x13: device 2 output
+#define kFnDev3In  0x14         // Fn 0x14: device 3 input
+//#define FnDev3Out 0x15        // Fn 0x15: device 3 output
+//#define FnDev4In  0x16        // Fn 0x16: device 4 input
+//#define FnDev4Out 0x17        // Fn 0x17: device 4 output
+//#define FnDev5In  0x18        // Fn 0x18: device 5 input
+//#define FnDev5Out 0x19        // Fn 0x19: device 5 output
+#define kFnDev6In  0x1A         // Fn 0x1A: device 6 input
+//#define FnDev6Out 0x1B        // Fn 0x1B: device 6 output
+
+// Message numbers
+#define kMsgNull   0            // Null message
+#define kMsgProdID 1            // Product identifier
+#define kMsgDevice 2            // ="Devices:"
+#define kMsgAbout  3            // About SCMonitor inc version
+#define kMsgDevLst 4            // Device list
+#define kMsgLstSys 4            // Last system message number
 
 //     **************************************************************
 //     **                     Copyright notice                     **

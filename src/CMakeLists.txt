@@ -1,4 +1,4 @@
-list(APPEND SCM_SOURCES alpha.S console.S)
+list(APPEND SCM_SOURCES alpha.S console.S idle.S)
 
 # sources to add:
 # console.s idle.s ports.s
