@@ -7,6 +7,9 @@ list(APPEND SCM_SOURCES api.S fdos.S)
 # support
 list(APPEND SCM_SOURCES strings.S utilities.S)
 
+# monitor
+list(APPEND SCM_SOURCES monitor.S)
+
 # optionally
 # monitor: monitor.S assembler.S breakpoint.S commands.S disassembler.S hexloader.S script.S
 # extensions: trace.S romfs.S

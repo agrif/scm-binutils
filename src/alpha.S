@@ -765,7 +765,6 @@ iMemTop:
     .equ BPInitialise, 0x0dff
     .equ CLILoop, 0x0f72
     .equ iHwFlags, 0xfeaf
-    .equ MonOutputMsg, 0x0869
     .equ Hardware_Signon, 0x1dae
     .equ Hardware_Devices, 0x1dce
     .equ Hardware_BaudSet, 0x1d9d
@@ -782,10 +781,3 @@ iMemTop:
 
     ;; from utilities.S
     .equ DisWrInstruction, 0x141b
-    .equ sRegisters, 0x0882
-    .equ iRegisters, 0xfe73
-    .equ iAF, 0xfe75
-    .equ sRegister2, 0x08a5
-    .equ iRegister2, 0xfe81
-    .equ iAF2, 0xfe83
-    .equ sFlags, 0x08c8

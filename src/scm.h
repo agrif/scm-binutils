@@ -51,11 +51,11 @@
 #error "no hardware define found, kHardID left undefined"
 #endif
 
-// Size of shared buffers
+// (alpha) Size of shared buffers
 #define kInputSize 0x80         // Size of kInputBuf
 #define kStrSize   0x80         // Size of kStrBuf
 
-// Common constants
+// (alpha) Common constants
 #define kNull      0x00         // Null character/byte (0x00)
 #define kNewLine   0x05         // New line character (0x05)
 #define kBackspace 0x08         // Backspace character (0x08)
@@ -74,7 +74,7 @@
 // The jump table contains a number of "JP nn" instructions which are
 // used to redirect functions. Each entry in the table takes 3 bytes.
 // The jump table is created in RAM on cold start of the monitor.
-// Jump table constants - jump number (0 to n)
+// (alpha) Jump table constants - jump number (0 to n)
 #define kFnNMI     0x00         // Fn 0x00: non-maskable interrupt handler
 #define kFnRST08   0x01         // Fn 0x01: restart 08 handler
 #define kFnRST10   0x02         // Fn 0x02: restart 10 handler
@@ -105,13 +105,27 @@
 #define kFnDev6In  0x1A         // Fn 0x1A: device 6 input
 //#define FnDev6Out 0x1B        // Fn 0x1B: device 6 output
 
-// Message numbers
+// (alpha) Message numbers
 #define kMsgNull   0            // Null message
 #define kMsgProdID 1            // Product identifier
 #define kMsgDevice 2            // ="Devices:"
 #define kMsgAbout  3            // About SCMonitor inc version
 #define kMsgDevLst 4            // Device list
 #define kMsgLstSys 4            // Last system message number
+
+// (monitor) Message numbers
+#define kMsgMonFst 0x20         // First monitor message
+#define kMsgBadCmd +(kMsgMonFst+0) // Bad command
+#define kMsgBadPar +(kMsgMonFst+1) // Bad parameter
+#define kMsgSyntax +(kMsgMonFst+2) // Syntax error
+#define kMsgBPSet  +(kMsgMonFst+3) // Breakpoint set
+#define kMsgBPClr  +(kMsgMonFst+4) // Breakpoint cleared
+#define kMsgBPFail +(kMsgMonFst+5) // Unable to set breakpoint here
+#define kMsgHelp   +(kMsgMonFst+6) // Help text
+#define kMsgNotAv  +(kMsgMonFst+7) // Feature not included
+#define kMsgReady  +(kMsgMonFst+8) // Ready
+#define kMsgFileEr +(kMsgMonFst+9) // File error
+#define kMsgMonLst kMsgFileEr   // Last monitor message
 
 //     **************************************************************
 //     **                     Copyright notice                     **
