@@ -63,6 +63,7 @@
 #define kReturn    0x0d         // Return character (0x0D)
 #define kEscape    0x1b         // Escape character (0x1B)
 #define kSpace     0x20         // Space character (0x20)
+#define kQuote     0x22         // Quote character (0x22)
 #define kApostroph 0x27         // Apostrophe character (0x27)
 #define kComma     0x2c         // Comma character (0x2C)
 #define kPeriod    0x2e         // Period character (0x2E)

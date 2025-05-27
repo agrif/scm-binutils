@@ -770,9 +770,6 @@ iMemTop:
     .equ Hardware_Devices, 0x1dce
     .equ Hardware_BaudSet, 0x1d9d
 
-    ;; from console.S
-    .equ ConvertCharToUCase, 0x06de
-
     ;; from idle.S
     .equ Hardware_PollTimer, 0x1d9f
 
@@ -783,6 +780,12 @@ iMemTop:
     .equ CLISkipNonDeli, 0x0feb
     .equ CLIGetHexParam, 0x0ffd
 
-    ;; from strings.S
-    .equ ConvertByteToAscii, 0x06a3
-    .equ ConvertByteToNibbles, 0x06ae
+    ;; from utilities.S
+    .equ DisWrInstruction, 0x141b
+    .equ sRegisters, 0x0882
+    .equ iRegisters, 0xfe73
+    .equ iAF, 0xfe75
+    .equ sRegister2, 0x08a5
+    .equ iRegister2, 0xfe81
+    .equ iAF2, 0xfe83
+    .equ sFlags, 0x08c8
