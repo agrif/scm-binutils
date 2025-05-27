@@ -776,7 +776,6 @@ iMemTop:
     .equ EndOfMonitor, 0x001e   ; uncomment in link.x to restore
 
     ;; from commands.S
-    .equ HexLoad, 0x1a84
     .equ RomExFile, 0x1b86
     .equ RomSearchInit, 0x1b45
     .equ RomSearchNext, 0x1b4d
