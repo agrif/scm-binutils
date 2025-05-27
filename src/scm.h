@@ -52,6 +52,26 @@
 #error "no hardware define found, kHardID left undefined"
 #endif
 
+// Size of shared buffers
+#define kInputSize 0x80         // Size of kInputBuf
+#define kStrSize   0x80         // Size of kStrBuf
+
+
+// Common constants
+#define kNull      0x00         // Null character/byte (0x00)
+#define kNewLine   0x05         // New line character (0x05)
+#define kBackspace 0x08         // Backspace character (0x08)
+#define kLinefeed  0x0a         // Line feed character (0x0A)
+#define kReturn    0x0d         // Return character (0x0D)
+#define kEscape    0x1b         // Escape character (0x1B)
+#define kSpace     0x20         // Space character (0x20)
+#define kApostroph 0x27         // Apostrophe character (0x27)
+#define kComma     0x2c         // Comma character (0x2C)
+#define kPeriod    0x2e         // Period character (0x2E)
+#define kColon     0x3a         // Colon character (0x3A)
+#define kSemicolon 0x3b         // Semicolon character (0x3B)
+#define kDelete    0x7f         // Delete character (0x7F)
+
 //     **************************************************************
 //     **                     Copyright notice                     **
 //     **                                                          **

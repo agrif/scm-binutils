@@ -60,11 +60,9 @@ kSPUsr:
     .skip 0x40          ; Top of stack for system
 kSPSys:
 kInputBuff:
-    .skip 0x80          ; Line input buffer start    (to +0x017F)
-    .equ kInputSize, 0x80 ; Size of input buffer
+    .skip kInputSize    ; Line input buffer start    (to +0x017F)
 kStrBuffer:
-    .skip 0x80          ; String buffer              (to +0x01FF)
-    .equ kStrSize, 0x80 ; Size of string buffer
+    .skip kStrSize      ; String buffer              (to +0x01FF)
 
 kJumpTab:
 JpNMI:
@@ -133,22 +131,6 @@ kWorkspace:
     .equ kPassHL, kPassInfo+0x08 ; Pass HL --/from API
     .equ kPassDevI, kPassInfo+0x0A ; Pass current input device
     .equ kPassDevO, kPassInfo+0x0B ; Pass current output device
-
-
-    ;; Common constants
-    #define kNull      0x00         // Null character/byte (0x00)
-    #define kNewLine   0x05         // New line character (0x05)
-    #define kBackspace 0x08         // Backspace character (0x08)
-    #define kLinefeed  0x0a         // Line feed character (0x0A)
-    #define kReturn    0x0d         // Return character (0x0D)
-    #define kEscape    0x1b         // Escape character (0x1B)
-    #define kSpace     0x20         // Space character (0x20)
-    #define kApostroph 0x27         // Apostrophe character (0x27)
-    #define kComma     0x2c         // Comma character (0x2C)
-    #define kPeriod    0x2e         // Period character (0x2E)
-    #define kColon     0x3a         // Colon character (0x3A)
-    #define kSemicolon 0x3b         // Semicolon character (0x3B)
-    #define kDelete    0x7f         // Delete character (0x7F)
 
     ;; The jump table contains a number of "JP nn" instructions which are
     ;; used to redirect functions. Each entry in the table takes 3 bytes.
@@ -402,8 +384,8 @@ WarmStrt:
     #ifdef IncludeCommands
     jp   CLILoop        ; Command Line Interpreter main loop
     #else
-WarmStrt.Halt:
-    jr   WarmStrt.Halt  ; Halt here if no CLI
+.WarmStrtHalt:
+    jr   .WarmStrtHalt  ; Halt here if no CLI
     #endif
 
     ;; Trap unused entry points
@@ -616,18 +598,18 @@ Delay:
     push bc
     push de
     ;; 1 ms loop, DE times... (overhead = 36 TCy)
-Delay.LoopDE:
+.DelayLoopDE:
     ld   bc, kDelayCnt  ; [10]  Loop counter
     ;; 26 TCy loop, BC times...
-Delay.LoopBC:
+.DelayLoopBC:
     dec  bc             ; [6]
     ld   a, c           ; [4]
     or   b              ; [4]
-    jp   nz, Delay.LoopBC ; [10]
+    jp   nz, .DelayLoopBC ; [10]
     dec  de             ; [6]
     ld   a, e           ; [4]
     or   d              ; [4]
-    jr   nz, Delay.LoopDE ; [12/7]
+    jr   nz, .DelayLoopDE ; [12/7]
     pop  de
     pop  bc
     ret
@@ -697,31 +679,31 @@ OutputMessage:
     #ifdef IncludeMonitor
     call MonOutputMsg   ; Offer message number to monitor
     or   a              ; Message still needs handling?
-    jr   z, OutputMessage.Exit ; No, so exit
+    jr   z, .OutputMessageExit ; No, so exit
     #endif
     ;; Add any other message generating modules here
     ;; ...........
     ;; System message?
     cp   kMsgLstSys+1   ; Valid system message number?
-    jr   nc, OutputMessage.Exit ; No, so abort
+    jr   nc, .OutputMessageExit ; No, so abort
     ;; About message?
     cp   kMsgAbout      ; About message?
-    jr   nz, OutputMessage.NotAbout ; No, so skip
+    jr   nz, .OutputMessageNotAbout ; No, so skip
     ld   de, szProduct  ; ="Small Computer Monitor"
     call OutputZString  ; Output message at DE
     ld   de, szAbout    ; ="<about this configuration>"
     call OutputZString  ; Output message at DE
     call Hardware_Signon ; Hardware signon message
-    jr   OutputMessage.Exit
-OutputMessage.NotAbout:
+    jr   .OutputMessageExit
+.OutputMessageNotAbout:
     ;; Device list message?
     cp   kMsgDevLst     ; Device list message?
-    jr   nz, OutputMessage.NotDevLst ; No, so skip
+    jr   nz, .OutputMessageNotDevLst ; No, so skip
     ;;ld   de, szDevices ; ="Devices:"
     ;;call OutputZString ; Output message at DE
     call Hardware_Devices ; Output device list
-    jr   OutputMessage.Exit
-OutputMessage.NotDevLst:
+    jr   .OutputMessageExit
+.OutputMessageNotDevLst:
     ;; Other system message?
     ld   e, a           ; Get message number
     ld   d, 0
@@ -733,7 +715,7 @@ OutputMessage.NotDevLst:
     ld   d, (hl)
     ld   e, a
     call OutputZString  ; Output message as DE
-OutputMessage.Exit:
+.OutputMessageExit:
     pop  hl             ; Restore HL
     pop  de             ; Restore DE
     ret
@@ -747,9 +729,9 @@ OutputMessage.Exit:
     ;;             BC DE HL IX IY I AF' BC' DE' HL' preserved
 SetBaud:
     cp   0x0a           ; Identifier is a hex letter?
-    jr   c, SetBaud.GotNum ; No, so skip
+    jr   c, .SetBaudGotNum ; No, so skip
     sub  0x09           ; Convert 0x0A/B to 0x01/2
-SetBaud.GotNum:
+.SetBaudGotNum:
     ld   c, a           ; Get device identifier (0x01 to 0x06)
     ld   a, e           ; Get baud rate code
     ;; Set baud rate for device C (1 to 6) to baud code A
@@ -816,20 +798,15 @@ iMemTop:
     ;; **********************************************************************
 
     ;; (agrif) FIXME no good very bad shims for undefined symbols
+    ;; from alpha.S
     .equ FDOS, 0x0564
-    .equ OutputChar, 0x040b
-    .equ InputChar, 0x0325
-    .equ InputStatus, 0x033b
     .equ BPHandler, 0x0e12
     .equ APIHandler, 0x04fd
     .equ PrtOInit, 0x04a5
     .equ PrtIInit, 0x04d3
     .equ Hardware_Initialise, 0x1d30
-    .equ ConInitialise, 0x02ee
     .equ RomInitialise, 0x1ae3
-    .equ OutputNewLine, 0x0420
     .equ szStartup, 0x1d29
-    .equ OutputZString, 0x0428
     .equ BPInitialise, 0x0dff
     .equ CLILoop, 0x0f72
     .equ iHwFlags, 0xfeaf
@@ -837,3 +814,7 @@ iMemTop:
     .equ Hardware_Signon, 0x1dae
     .equ Hardware_Devices, 0x1dce
     .equ Hardware_BaudSet, 0x1d9d
+
+    ;; from console.S
+    .equ ConvertCharToUCase, 0x06de
+    .equ StrCopyToZ, 0x05c8
