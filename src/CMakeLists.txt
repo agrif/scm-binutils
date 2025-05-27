@@ -1,7 +1,4 @@
-list(APPEND SCM_SOURCES alpha.S console.S idle.S)
-
-# sources to add:
-# console.s idle.s ports.s
+list(APPEND SCM_SOURCES alpha.S console.S idle.S ports.s)
 
 # optionally
 # exports: api.S fdos.S

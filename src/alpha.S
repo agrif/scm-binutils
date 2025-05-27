@@ -761,8 +761,6 @@ iMemTop:
     .equ FDOS, 0x0564
     .equ BPHandler, 0x0e12
     .equ APIHandler, 0x04fd
-    .equ PrtOInit, 0x04a5
-    .equ PrtIInit, 0x04d3
     .equ Hardware_Initialise, 0x1d30
     .equ RomInitialise, 0x1ae3
     .equ szStartup, 0x1d29
