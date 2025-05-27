@@ -758,7 +758,6 @@ iMemTop:
 
     ;; (agrif) FIXME no good very bad shims for undefined symbols
     ;; from alpha.S
-    .equ FDOS, 0x0564
     .equ BPHandler, 0x0e12
     .equ Hardware_Initialise, 0x1d30
     .equ RomInitialise, 0x1ae3
