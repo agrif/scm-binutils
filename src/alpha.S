@@ -758,11 +758,9 @@ iMemTop:
 
     ;; (agrif) FIXME no good very bad shims for undefined symbols
     ;; from alpha.S
-    .equ BPHandler, 0x0e12
     .equ Hardware_Initialise, 0x1d30
     .equ RomInitialise, 0x1ae3
     .equ szStartup, 0x1d29
-    .equ BPInitialise, 0x0dff
     .equ CLILoop, 0x0f72
     .equ iHwFlags, 0xfeaf
     .equ Hardware_Signon, 0x1dae
@@ -787,3 +785,7 @@ iMemTop:
     .equ DisInst, 0x1859
     .equ DisOperandTable, 0x16d1
     .equ DisMaskTable, 0x16eb
+
+    ;; from breakpoint.S
+    .equ DisGetNextAddress, 0x1522
+    .equ EndOfMonitor, 0x001e   ; uncomment in link.x to restore

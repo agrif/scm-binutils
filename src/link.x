@@ -14,7 +14,7 @@ SECTIONS
     {
         StartOfMonitor = .;
         *(.text .text.* .rodata .rodata.*);
-        EndOfMonitor = .;
+        /* EndOfMonitor = .; */
 
         /* always fill region */
         . = LENGTH(CODE);
