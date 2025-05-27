@@ -354,7 +354,7 @@ class Convert(Subcommand):
         for line in asm.lines:
             if line.label:
                 if line.label.startswith('@'):
-                    local_labels[(last_label, line.label)] = last_label + '.' + line.label[1:]
+                    local_labels[(last_label, line.label)] = '.' + last_label + line.label[1:]
                 else:
                     last_label = line.label
 
