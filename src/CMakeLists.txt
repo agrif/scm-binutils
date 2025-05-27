@@ -10,8 +10,8 @@ list(APPEND SCM_SOURCES strings.S utilities.S)
 # monitor
 list(APPEND SCM_SOURCES monitor.S assembler.S breakpoint.S commands.S disassembler.S disassembler-data.S hexloader.S script.S)
 
-# optionally
-# extensions: trace.S romfs.S
+# extensions
+list(APPEND SCM_SOURCES romfs.S)
 
 # hardware !Manager.s (see !Main.asm)
 # rom filing system

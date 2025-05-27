@@ -759,7 +759,6 @@ iMemTop:
     ;; (agrif) FIXME no good very bad shims for undefined symbols
     ;; from alpha.S
     .equ Hardware_Initialise, 0x1d30
-    .equ RomInitialise, 0x1ae3
     .equ szStartup, 0x1d29
     .equ iHwFlags, 0xfeaf
     .equ Hardware_Signon, 0x1dae
@@ -769,16 +768,10 @@ iMemTop:
     ;; from idle.S
     .equ Hardware_PollTimer, 0x1d9f
 
-    ;; from api.S
-    .equ RomGetPtr, 0x1b81
-
     ;; from breakpoint.S
     .equ EndOfMonitor, 0x001e   ; uncomment in link.x to restore
 
-    ;; from commands.S
-    .equ RomExFile, 0x1b86
-    .equ RomSearchInit, 0x1b45
-    .equ RomSearchNext, 0x1b4d
-    .equ RomGetName, 0x1c0f
-    .equ RomGetType, 0x1c16
-    .equ RomGetHlp, 0x1bfb
+    ;; from romfs.S
+    .equ RomPageInit, 0x1e51
+    .equ RomExec, 0x1e52
+    .equ RomCopy, 0x1e69
