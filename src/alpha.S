@@ -772,17 +772,7 @@ iMemTop:
     ;; from api.S
     .equ RomGetPtr, 0x1b81
 
-    ;; from utilities.S
-    .equ DisWrInstruction, 0x141b
-
-    ;; from assembler.S
-    .equ DisString, 0x16f3
-    .equ DisInst, 0x1859
-    .equ DisOperandTable, 0x16d1
-    .equ DisMaskTable, 0x16eb
-
     ;; from breakpoint.S
-    .equ DisGetNextAddress, 0x1522
     .equ EndOfMonitor, 0x001e   ; uncomment in link.x to restore
 
     ;; from commands.S
