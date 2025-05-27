@@ -772,7 +772,6 @@ iMemTop:
 
     ;; from console.S
     .equ ConvertCharToUCase, 0x06de
-    .equ StrCopyToZ, 0x05c8
 
     ;; from idle.S
     .equ Hardware_PollTimer, 0x1d9f
@@ -783,3 +782,7 @@ iMemTop:
     .equ CLISkipDelim, 0x0ff4
     .equ CLISkipNonDeli, 0x0feb
     .equ CLIGetHexParam, 0x0ffd
+
+    ;; from strings.S
+    .equ ConvertByteToAscii, 0x06a3
+    .equ ConvertByteToNibbles, 0x06ae

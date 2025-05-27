@@ -4,6 +4,9 @@ list(APPEND SCM_SOURCES alpha.S console.S idle.S ports.s)
 # exports
 list(APPEND SCM_SOURCES api.S fdos.S)
 
+# support
+list(APPEND SCM_SOURCES strings.S)
+
 # optionally
 # support: strings.S utilities.S
 # monitor: monitor.S assembler.S breakpoint.S commands.S disassembler.S hexloader.S script.S
