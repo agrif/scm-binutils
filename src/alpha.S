@@ -781,3 +781,9 @@ iMemTop:
 
     ;; from utilities.S
     .equ DisWrInstruction, 0x141b
+
+    ;; from assembler.S
+    .equ DisString, 0x16f3
+    .equ DisInst, 0x1859
+    .equ DisOperandTable, 0x16d1
+    .equ DisMaskTable, 0x16eb

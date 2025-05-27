@@ -127,6 +127,33 @@
 #define kMsgFileEr +(kMsgMonFst+9) // File error
 #define kMsgMonLst kMsgFileEr   // Last monitor message
 
+// (disassembler) Disassembly constants
+#define kDisBrack  5            // Bracket flag
+#define kDisImmed  4            // Immediate value flag
+#define kDisWord   3            // Immediate value is word (not byte) flag
+#define kDisLength 2            // Substite two characters (not one) flag
+#define kDisMask   0x03         // Mask type 0=0x07,1=0x18,2=0x30,3=0x38
+
+// (disassembler-data) Instruction constants
+#define kDisSubsL  13           // Last operand substitution string
+#define kDisSubNN  4            // Operand substitution string 'nn'
+#define kDisSubC   10           // Operand substitution string 'c'
+#define kDisSubCC  11           // Operand substitution string 'cc'
+#define kDisBracHL 21           // Bracketed HL
+#define kDisHL     24           // HL
+#define kDisFlowF  27           // First flow control instructions
+#define kDisFlowL  34           // Last flow control instructions
+#define kDisJR     27           // Operation string 'JR'
+#define kDisDJNZ   28           // Operation string 'DJNZ'
+#define kDisRST    29           // Operation string 'RST'
+#define kDisJP     30           // Operation string 'JP'
+#define kDisCALL   31           // Operation string 'CALL'
+#define kDisRET    32           // Operation string 'RET'
+#define kDisOpMask 0x3F         // Operand 1 mask to exclude pre-code bits
+#define kDisMskC   0x18         // Condition bit mask for Operand 1 = C
+#define kDisMskCC  0x38         // Condition bit mask for Operand 1 = CC
+#define kDisMskRST 0x38         // Restart address bits
+
 //     **************************************************************
 //     **                     Copyright notice                     **
 //     **                                                          **
