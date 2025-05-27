@@ -1,4 +1,8 @@
+# core
 list(APPEND SCM_SOURCES alpha.S console.S idle.S ports.s)
+
+# exports
+list(APPEND SCM_SOURCES api.S)
 
 # optionally
 # exports: api.S fdos.S

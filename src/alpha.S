@@ -760,7 +760,6 @@ iMemTop:
     ;; from alpha.S
     .equ FDOS, 0x0564
     .equ BPHandler, 0x0e12
-    .equ APIHandler, 0x04fd
     .equ Hardware_Initialise, 0x1d30
     .equ RomInitialise, 0x1ae3
     .equ szStartup, 0x1d29
@@ -778,3 +777,10 @@ iMemTop:
 
     ;; from idle.S
     .equ Hardware_PollTimer, 0x1d9f
+
+    ;; from api.S
+    .equ CLIExecute, 0x0fa2
+    .equ RomGetPtr, 0x1b81
+    .equ CLISkipDelim, 0x0ff4
+    .equ CLISkipNonDeli, 0x0feb
+    .equ CLIGetHexParam, 0x0ffd
