@@ -4,6 +4,7 @@ MEMORY
 {
     /* These lengths correspond to the max lengths given in config.h */
     CODE (rx) : ORIGIN = kCode, LENGTH = 0x1e00
+    ROMFS (r) : ORIGIN = ORIGIN(CODE) + LENGTH(CODE), LENGTH = 0x200
     DATA (wx) : ORIGIN = kData, LENGTH = 0x0400
 }
 
@@ -18,6 +19,13 @@ SECTIONS
         /* always fill region */
         . = LENGTH(CODE);
     } > CODE
+
+    .romfs (TYPE = SHT_PROGBITS) :
+    {
+        /* dummy romfs */
+        BYTE(0)
+        . = LENGTH(ROMFS);
+    } > ROMFS
 
     .data :
     {
