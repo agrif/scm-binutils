@@ -114,7 +114,6 @@
 
 // defines for any hardware options would go here
 
-#define kCode      0x0000      // Typically 0x0000 or 0xE000
 #define kSIO2      0x80        // Base address of SIO/2 chip
 #define kACIA1     0x80        // Base address of serial ACIA #1
 #define kACIA2     0x40        // Base address of serial ACIA #2
