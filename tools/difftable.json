@@ -132,5 +132,12 @@
         "start": "0x0",
         "a_sha1": "994751bb7b35761e18b37d8b69ccc34cee680380",
         "bin_sha1": "32e5cb0be10032229bc5b5bd1ac4c81f88e99f13"
+    },
+    {
+        "a": "[scm]/SCMonitor/Builds/SCMonitor-v100-R2-RC2014-16k-ROM.hex",
+        "b": "[build]/src/scmonitor-r2.hex",
+        "start": "0x0",
+        "a_sha1": "86c3c74641bae692137d85e767aa3b5c204047b9",
+        "bin_sha1": "db7814432ddad1553133006832c11994dc93dffd"
     }
 ]

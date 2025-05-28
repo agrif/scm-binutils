@@ -17,9 +17,6 @@ SECTIONS
     {
         *(.text .text.* .rodata .rodata.*);
         EndOfMonitor = .;
-
-        /* always fill region */
-        . = LENGTH(CODE);
     } > CODE
 
     .data :
@@ -36,16 +33,21 @@ SECTIONS
     .rominfo (TYPE = SHT_PROGBITS) :
     {
         *(.rominfo .rominfo.*)
-    } > ROMINFO
+
+        /* fill to 0x10 boundary */
+        . = ALIGN(0x10);
+    } > ROMINFO =0xff
 
     RomFilesStart = ORIGIN(ROMINFO) + LENGTH(ROMINFO) - SIZEOF(.romfiles);
 
     .romfiles RomFilesStart (TYPE = SHT_PROGBITS) :
     {
         *(.romfiles .romfiles.*)
-        . = ALIGN(0x10);
     } > ROMINFO
 }
 
 ASSERT((SIZEOF(.data) == 0),
 "ERROR(link.x): .data is not supported");
+
+ASSERT((SIZEOF(.romfiles) % 0x10 == 0),
+"ERROR(link.x): .romfiles size not a multiple of the file entry size");
