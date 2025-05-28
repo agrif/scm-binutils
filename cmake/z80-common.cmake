@@ -30,8 +30,9 @@ function(z80_print_size TARGET)
   add_custom_command(
     TARGET ${TARGET}
     POST_BUILD
-    COMMAND ${CMAKE_SIZE} "$<TARGET_FILE:${TARGET}>"
+    COMMAND ${CMAKE_SIZE} "$<TARGET_FILE_NAME:${TARGET}>"
     VERBATIM
+    WORKING_DIRECTORY "$<TARGET_FILE_DIR:${TARGET}>"
   )
 endfunction()
 
