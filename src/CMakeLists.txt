@@ -13,10 +13,13 @@ list(APPEND SCM_SOURCES monitor.S assembler.S breakpoint.S commands.S disassembl
 # extensions
 list(APPEND SCM_SOURCES romfs.S)
 
+# RC2014
+list(APPEND RC2014_SOURCES hardware/rc2014/serial-6850.S)
+
 # hardware !Manager.s (see !Main.asm)
 # rom filing system
 
-add_executable(scmonitor-r1 ${SCM_SOURCES})
+add_executable(scmonitor-r1 ${SCM_SOURCES} ${RC2014_SOURCES})
 target_compile_definitions(scmonitor-r1 PRIVATE BUILD_R1)
 target_include_directories(scmonitor-r1 PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 z80_add_linker_script(scmonitor-r1 PRIVATE link.x)
