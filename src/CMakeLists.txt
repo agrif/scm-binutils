@@ -38,3 +38,11 @@ z80_embed_binary(scmonitor-r2 hardware/rc2014/rom-info-r2-bank1.S
   MSBASIC_2000_4000_BIN msbasic-2000-4000)
 scm_target(scmonitor-r2 BUILD_R2 ${RC2014_SOURCES}
   hardware/rc2014/rom-info-r2-bank1.S)
+
+# R3: RC2014 32K ROM 32/64K RAM paged
+z80_embed_binary(scmonitor-r3 hardware/rc2014/rom-info-r3-bank1.S
+  MSBASIC_2000_8000_BIN msbasic-2000-8000)
+z80_embed_binary(scmonitor-r3 hardware/rc2014/rom-info-r3-bank1.S
+  CPM_LOADER_BIN cpm-loader)
+scm_target(scmonitor-r3 BUILD_R3 ${RC2014_SOURCES}
+  hardware/rc2014/rom-info-r3-bank1.S)
