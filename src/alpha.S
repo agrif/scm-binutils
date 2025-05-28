@@ -160,13 +160,14 @@ kWorkspace:
     ;; **********************************************************************
 
     ;; avoid a really bad error or infinite cycle
-    #if  !defined(kCode) || !defined(kData)
-    #error "kCode or kData not defined"
+    #if  !defined(kCode) || !defined(kData) || !defined(kROMTop)
+    #error "kCode, kData, or kROMTop not defined"
     #endif
 
-    ;; promote kData and kCode from defines to symbols for the linker
+    ;; promote kCode, kData, and kROMTop from defines to symbols
     .equ "kCode", kCode
     .equ "kData", kData
+    .equ "kROMLimit", (kROMTop + 1) << 8
 
 
     ;; **********************************************************************

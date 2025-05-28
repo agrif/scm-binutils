@@ -19,7 +19,7 @@ list(APPEND RC2014_SOURCES hardware/rc2014/serial-6850.S hardware/rc2014/serial-
 # hardware !Manager.s (see !Main.asm)
 # rom filing system
 
-add_executable(scmonitor-r1 ${SCM_SOURCES} ${RC2014_SOURCES})
+add_executable(scmonitor-r1 ${SCM_SOURCES} ${RC2014_SOURCES} hardware/rc2014/rom-info-r1-bank1.S)
 target_compile_definitions(scmonitor-r1 PRIVATE BUILD_R1)
 target_include_directories(scmonitor-r1 PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 z80_add_linker_script(scmonitor-r1 PRIVATE link.x)

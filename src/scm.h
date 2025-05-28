@@ -26,6 +26,9 @@
 
 #include "config.h"
 
+// StartOfMonitor is always kCode
+#define StartOfMonitor kCode
+
 // set kHardID based on hardware defined in config.h
 #if defined(Custom)
 #define kHardID 0

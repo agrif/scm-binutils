@@ -2,30 +2,25 @@ ENTRY(ColdStrt);
 
 MEMORY
 {
-    /* These lengths *should* correspond to the max lengths given in config.h */
-    CODE (rx) : ORIGIN = kCode, LENGTH = 0x1f00
-    ROMFS (r) : ORIGIN = ORIGIN(CODE) + LENGTH(CODE), LENGTH = 0x100
-    DATA (wx) : ORIGIN = kData, LENGTH = 0x0400
+    /* These lengths *should* correspond to the max lengths given in config.h
+       however, some ports don't fit.
+       Use 0x1f00 so at least 0x100 remains for the ROMFS
+     */
+    CODE    (rx) : ORIGIN = kCode, LENGTH = 0x1f00
+    ROMINFO (r)  : ORIGIN = ORIGIN(CODE) + LENGTH(CODE), LENGTH = kROMLimit - ORIGIN(ROMINFO)
+    DATA    (wx) : ORIGIN = kData, LENGTH = 0x0400
 }
 
 SECTIONS
 {
     .text :
     {
-        StartOfMonitor = .;
         *(.text .text.* .rodata .rodata.*);
         EndOfMonitor = .;
 
         /* always fill region */
         . = LENGTH(CODE);
     } > CODE
-
-    .romfs (TYPE = SHT_PROGBITS) :
-    {
-        /* dummy romfs */
-        BYTE(0)
-        . = LENGTH(ROMFS);
-    } > ROMFS
 
     .data :
     {
@@ -37,6 +32,19 @@ SECTIONS
         *(.bss .bss.*)
         *(COMMON)
     } > DATA
+
+    .rominfo (TYPE = SHT_PROGBITS) :
+    {
+        *(.rominfo .rominfo.*)
+    } > ROMINFO
+
+    RomFilesStart = ORIGIN(ROMINFO) + LENGTH(ROMINFO) - SIZEOF(.romfiles);
+
+    .romfiles RomFilesStart (TYPE = SHT_PROGBITS) :
+    {
+        *(.romfiles .romfiles.*)
+        . = ALIGN(0x10);
+    } > ROMINFO
 }
 
 ASSERT((SIZEOF(.data) == 0),
