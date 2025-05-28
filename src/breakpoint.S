@@ -319,7 +319,7 @@ BPIsInMonitor:
     or   a              ; Is it 0x00? (address 0x0000 to 0x00FF
     ret  z              ; Yes, so return Z
     ;; H is not 0x00
-    ld   a, EndOfMonitor
+    ld   a, EndOfMonitor >> 8
     cp   h              ; Compare with hi byte of address
     ;;           RET  Z              ;Return Z if H = monitor end
     ret  c              ; Return NZ if > monitor end

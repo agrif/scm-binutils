@@ -14,7 +14,7 @@ list(APPEND SCM_SOURCES monitor.S assembler.S breakpoint.S commands.S disassembl
 list(APPEND SCM_SOURCES romfs.S)
 
 # RC2014
-list(APPEND RC2014_SOURCES hardware/rc2014/serial-6850.S hardware/rc2014/serial-sio2.S)
+list(APPEND RC2014_SOURCES hardware/rc2014/serial-6850.S hardware/rc2014/serial-sio2.S hardware/rc2014/manager.S)
 
 # hardware !Manager.s (see !Main.asm)
 # rom filing system

@@ -755,23 +755,3 @@ iMemTop:
     ;; **********************************************************************
     ;; **  End of Alpha module                                             **
     ;; **********************************************************************
-
-    ;; (agrif) FIXME no good very bad shims for undefined symbols
-    ;; from alpha.S
-    .equ Hardware_Initialise, 0x1d30
-    .equ szStartup, 0x1d29
-    .equ iHwFlags, 0xfeaf
-    .equ Hardware_Signon, 0x1dae
-    .equ Hardware_Devices, 0x1dce
-    .equ Hardware_BaudSet, 0x1d9d
-
-    ;; from idle.S
-    .equ Hardware_PollTimer, 0x1d9f
-
-    ;; from breakpoint.S
-    .equ EndOfMonitor, 0x001e   ; uncomment in link.x to restore
-
-    ;; from romfs.S
-    .equ RomPageInit, 0x1e51
-    .equ RomExec, 0x1e52
-    .equ RomCopy, 0x1e69

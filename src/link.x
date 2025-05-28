@@ -2,9 +2,9 @@ ENTRY(ColdStrt);
 
 MEMORY
 {
-    /* These lengths correspond to the max lengths given in config.h */
-    CODE (rx) : ORIGIN = kCode, LENGTH = 0x1e00
-    ROMFS (r) : ORIGIN = ORIGIN(CODE) + LENGTH(CODE), LENGTH = 0x200
+    /* These lengths *should* correspond to the max lengths given in config.h */
+    CODE (rx) : ORIGIN = kCode, LENGTH = 0x1f00
+    ROMFS (r) : ORIGIN = ORIGIN(CODE) + LENGTH(CODE), LENGTH = 0x100
     DATA (wx) : ORIGIN = kData, LENGTH = 0x0400
 }
 
@@ -14,7 +14,7 @@ SECTIONS
     {
         StartOfMonitor = .;
         *(.text .text.* .rodata .rodata.*);
-        /* EndOfMonitor = .; */
+        EndOfMonitor = .;
 
         /* always fill region */
         . = LENGTH(CODE);
