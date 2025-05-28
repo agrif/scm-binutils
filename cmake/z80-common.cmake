@@ -88,12 +88,36 @@ function(_z80_add_preprocessor_command TARGET SOURCE OUTPUT SOURCENAME)
   string(TOUPPER "${CMAKE_BUILD_TYPE}" BUILD_TYPE)
   string(REPLACE " " ";" C_FLAGS "${CMAKE_C_FLAGS} ${CMAKE_C_FLAGS_${BUILD_TYPE}}")
 
+  get_source_file_property(SRC_COMPILE_DEFINITIONS "${SOURCE}" COMPILE_DEFINITIONS)
+  if(SRC_COMPILE_DEFINITIONS STREQUAL "NOTFOUND")
+    set(SRC_COMPILE_DEFINITIONS "")
+  endif()
+  list(TRANSFORM SRC_COMPILE_DEFINITIONS PREPEND -D)
+
+  get_source_file_property(SRC_INCLUDE_DIRECTORIES "${SOURCE}" INCLUDE_DIRECTORIES)
+  if(SRC_INCLUDE_DIRECTORIES STREQUAL "NOTFOUND")
+    set(SRC_INCLUDE_DIRECTORIES "")
+  endif()
+  list(TRANSFORM SRC_INCLUDE_DIRECTORIES PREPEND -I)
+
+  get_source_file_property(SRC_COMPILE_OPTIONS "${SOURCE}" COMPILE_OPTIONS)
+  if(SRC_COMPILE_OPTIONS STREQUAL "NOTFOUND")
+    set(SRC_COMPILE_OPTIONS "")
+  endif()
+
   add_custom_command(
     COMMAND ${CMAKE_C_COMPILER}
-    "$<LIST:TRANSFORM,$<TARGET_PROPERTY:${TARGET},COMPILE_DEFINITIONS>,PREPEND,-D>"
-    "$<LIST:TRANSFORM,$<TARGET_PROPERTY:${TARGET},INCLUDE_DIRECTORIES>,PREPEND,-I>"
+
     ${C_FLAGS}
     $<TARGET_PROPERTY:${TARGET},COMPILE_OPTIONS>
+    ${SRC_COMPILE_OPTIONS}
+
+    "$<LIST:TRANSFORM,$<TARGET_PROPERTY:${TARGET},COMPILE_DEFINITIONS>,PREPEND,-D>"
+    ${SRC_COMPILE_DEFINITIONS}
+
+    "$<LIST:TRANSFORM,$<TARGET_PROPERTY:${TARGET},INCLUDE_DIRECTORIES>,PREPEND,-I>"
+    ${SRC_INCLUDE_DIRECTORIES}
+
     -MMD -MF "${OUTPUT}.d" -MQ "${OUTPUT}"
     -E "${SOURCE}" -o "${OUTPUT}"
 
@@ -104,6 +128,12 @@ function(_z80_add_preprocessor_command TARGET SOURCE OUTPUT SOURCENAME)
     OUTPUT "${OUTPUT}"
     COMMENT "Preprocessing ${SOURCENAME}"
   )
+endfunction()
+
+function(z80_preprocessed_name RESULT TARGET SOURCE)
+  get_filename_component(BASE "${SOURCE}" NAME_WLE)
+  set(${RESULT} "${CMAKE_CURRENT_BINARY_DIR}/${TARGET}-${BASE}.s")
+  return(PROPAGATE ${RESULT})
 endfunction()
 
 function(z80_preprocess_sources TARGET)
@@ -118,8 +148,7 @@ function(z80_preprocess_sources TARGET)
       continue()
     endif()
 
-    get_filename_component(BASE "${SOURCE}" NAME_WLE)
-    set(PREPROCESSED "${CMAKE_CURRENT_BINARY_DIR}/${TARGET}-${BASE}.s")
+    z80_preprocessed_name(PREPROCESSED ${TARGET} "${SOURCE}")
     set(SOURCEFULL "${CMAKE_CURRENT_SOURCE_DIR}/${SOURCE}")
 
     _z80_add_preprocessor_command(${TARGET} "${SOURCEFULL}" "${PREPROCESSED}" "${SOURCE}")
@@ -158,5 +187,51 @@ function(z80_globalize_symbols TARGET)
     "-DCMAKE_OBJCOPY=${CMAKE_OBJCOPY}"
     -P "${Z80_CMAKE_DIR}/z80-common-globalize-symbols.cmake"
     VERBATIM
+  )
+endfunction()
+
+function(z80_embed_binary TARGET SOURCE DEFINE ALTTARGET)
+  z80_embed_alternate(${TARGET} "${SOURCE}" "${DEFINE}" ${ALTTARGET} ".bin")
+endfunction()
+
+function(z80_embed_alternate TARGET SOURCE DEFINE ALTTARGET OUTPUT_EXTENSION)
+  z80_get_alternate_gen(GENERATED ${ALTTARGET} "${OUTPUT_EXTENSION}")
+
+  # a place in the build directory to store it, purposefully non-unique
+  # so that multiple uses can share this rule (might be a bad idea)
+  set(LOCAL "${CMAKE_CURRENT_BINARY_DIR}/${DEFINE}.bin")
+
+  # jank: can't use generator expressions inside OBJECT_DEPENDS
+  # so lets copy the file over to our build dir and depend on that
+  add_custom_command(
+    COMMAND ${CMAKE_COMMAND} -E copy "${GENERATED}" "${LOCAL}"
+    VERBATIM
+    DEPENDS ${ALTTARGET}
+    OUTPUT "${LOCAL}"
+  )
+
+  # get the preprocessed name of our source
+  z80_preprocessed_name(SOURCE_ASM ${TARGET} "${SOURCE}")
+
+  get_source_file_property(OBJECT_DEPENDS "${SOURCE_ASM}" OBJECT_DEPENDS)
+  get_source_file_property(COMPILE_DEFINITIONS "${SOURCE}" COMPILE_DEFINITIONS)
+
+  # why do you do this cmake
+  if(OBJECT_DEPENDS STREQUAL "NOTFOUND")
+    set(OBJECT_DEPENDS "")
+  endif()
+  if(COMPILE_DEFINITIONS STREQUAL "NOTFOUND")
+    set(COMPILE_DEFINITIONS "")
+  endif()
+
+  list(APPEND OBJECT_DEPENDS "${LOCAL}")
+  list(APPEND COMPILE_DEFINITIONS "${DEFINE}=\"${LOCAL}\"")
+
+  set_source_files_properties(${SOURCE_ASM} PROPERTIES
+    OBJECT_DEPENDS "${OBJECT_DEPENDS}"
+  )
+
+  set_source_files_properties(${SOURCE} PROPERTIES
+    COMPILE_DEFINITIONS "${COMPILE_DEFINITIONS}"
   )
 endfunction()
