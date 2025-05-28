@@ -270,12 +270,12 @@ ColdStrt:
     ;; At the end of a sucessful self test the default output port is cleared
     ;; to zero, otherwise the default output port indicates the failure
     #if  BUILD_S2
-    #include "hardware/sc114/selftest.s"
+    #include "hardware/sc114/selftest.inc.s"
     #define CUSTOM_SELFTEST
     #endif
     #ifndef CUSTOM_SELFTEST
     ;; Include self test functions
-    #include "selftest.s"
+    #include "selftest.inc.s"
     #endif
     #endif
     ;; Copy vectors etc to page zero in case code is elsewhere
